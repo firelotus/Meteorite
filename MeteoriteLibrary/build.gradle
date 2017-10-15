@@ -39,4 +39,6 @@ dependencies {
 
     compile 'com.zhy:base-rvadapter:3.0.3'
 
+    compile 'com.shizhefei:ViewPagerIndicator:1.1.6'
+
 }

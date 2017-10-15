@@ -1,25 +1,38 @@
 package com.firelotus.meteorite.ui;
 
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firelotus.meteorite.R;
+import com.firelotus.meteorite.ui.content.SubFragment;
 import com.firelotus.meteoritelibrary.base.BaseActivity;
+import com.shizhefei.view.indicator.FixedIndicatorView;
+import com.shizhefei.view.indicator.IndicatorViewPager;
+import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tv_content;
+    private IndicatorViewPager indicatorViewPager;
+    private FixedIndicatorView indicator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +59,24 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         tv_content = (TextView) findViewById(R.id.tv_content);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.tabmain_viewPager);
+        indicator = (FixedIndicatorView) findViewById(R.id.tabmain_indicator);
+
+        indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
+        indicatorViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
+
+        float unSelectSize = 16;
+        float selectSize = unSelectSize * 1.2f;
+
+        Resources res = getResources();
+        int selectColor = Color.BLACK;
+        int unSelectColor = Color.GRAY;
+        indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
+
+
+        // 设置viewpager保留界面不重新加载的页面数量
+        viewPager.setOffscreenPageLimit(1);
     }
 
     @Override
@@ -103,5 +134,39 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private class MyAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
+        private String[] tabNames = {"每日推荐", "福利", "干货订制", "安卓"};
+        private LayoutInflater inflater;
+
+        public MyAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+            inflater = LayoutInflater.from(getApplicationContext());
+        }
+
+        @Override
+        public int getCount() {
+            return tabNames.length;
+        }
+
+        @Override
+        public View getViewForTab(int position, View convertView, ViewGroup container) {
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.tab_main, container, false);
+            }
+            TextView textView = (TextView) convertView;
+            textView.setText(tabNames[position]);
+            return textView;
+        }
+
+        @Override
+        public Fragment getFragmentForPage(int position) {
+            SubFragment subFragment = new SubFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(SubFragment.INDEX, position);
+            subFragment.setArguments(bundle);
+            return subFragment;
+        }
     }
 }
