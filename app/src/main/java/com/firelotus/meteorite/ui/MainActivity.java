@@ -1,4 +1,4 @@
-package com.firelotus.meteorite;
+package com.firelotus.meteorite.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,15 +7,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity
+import com.firelotus.meteorite.R;
+import com.firelotus.meteoritelibrary.base.BaseActivity;
+
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView tv_content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        tv_content = (TextView) findViewById(R.id.tv_content);
     }
 
     @Override
@@ -81,17 +87,17 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            tv_content.setText("camera");
         } else if (id == R.id.nav_gallery) {
-
+            tv_content.setText("gallery");
         } else if (id == R.id.nav_slideshow) {
-
+            tv_content.setText("slideshow");
         } else if (id == R.id.nav_manage) {
-
+            tv_content.setText("manage");
         } else if (id == R.id.nav_share) {
-
+            tv_content.setText("share");
         } else if (id == R.id.nav_send) {
-
+            tv_content.setText("send");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

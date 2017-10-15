@@ -31,4 +31,12 @@ dependencies {
 
     //Simple, pretty and powerful logger for android
     compile 'com.orhanobut:logger:2.1.1'
+
+    //novate
+    compile 'com.tamic.novate:novate:1.5.2.3'
+
+    compile 'com.jcodecraeer:xrecyclerview:1.3.2'
+
+    compile 'com.zhy:base-rvadapter:3.0.3'
+
 }
