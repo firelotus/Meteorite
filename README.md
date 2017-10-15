@@ -19,5 +19,4 @@
  - 15、升级更新 
  - 16、极光推送
  
- <img width="165" height=“274” src="https://github.com/firelotus/Meteorite/blob/develop/image/logfile.png"></img>
- <img width="165" height=“274” src="https://github.com/firelotus/Meteorite/blob/develop/image/exceptionlog.png"></img>
+ <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/log.gif"></img>
