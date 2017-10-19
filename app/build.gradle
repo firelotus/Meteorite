@@ -112,7 +112,7 @@ android {
         //incremental true
     }
 }
-
+def dbflow_version = "4.0.5"
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -129,4 +129,7 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    compile "com.android.support:support-annotations:25.1.0"
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
 }

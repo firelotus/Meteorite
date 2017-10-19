@@ -20,7 +20,7 @@ android {
         }
     }
 }
-
+def dbflow_version = "4.0.5"
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -45,4 +45,6 @@ dependencies {
 
     //Android图片轮播控件
     compile 'com.youth.banner:banner:1.4.10'  //最新版本
+
+    compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
 }
