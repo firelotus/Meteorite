@@ -1,4 +1,15 @@
 apply plugin: 'com.android.application'
+def PRODUCT_NAME = "陨石"
+
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 25
@@ -11,11 +22,94 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['KEY_ALIAS']
+            keyPassword keystoreProperties['KEY_PASSWORD']
+            storeFile file(keystoreProperties['STORE_FILE'])
+            storePassword keystoreProperties['STORE_PASSWORD']
+        }
+    }
     buildTypes {
-        release {
+        debug {
+            // 混淆
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true // 保留debug信息
+            //打开log输出
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            signingConfig signingConfigs.config
+            manifestPlaceholders = [APP_NAME: "@string/app_name"]
+            //如果利用applicationIdSuffix支持生成多个APP，则需利用类似${APP_NAME}的占位符，配置多个key值，如推送，支付等
+            //applicationIdSuffix ".debug"
         }
+        release {
+            // 混淆
+            minifyEnabled true
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            debuggable false // 不保留debug信息
+            //关闭log输出
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            manifestPlaceholders = [APP_NAME: "@string/app_name"]
+        }
+    }
+
+    // 指定输出的apk名
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            // 打包类型
+            def buildTypeName = variant.buildType.name
+
+            def BUILD_TIME_FORMAT = new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                // 包名称
+                def flavorName = variant.productFlavors[0].name
+                // 版本名称
+                def versionName = defaultConfig.versionName
+                // 开发环境
+                buildConfigField "String", "APP_ENV", "\"${flavorName}\""
+                // 修改打包环境的url
+                def base_url = ''
+                if(flavorName.equals("rls")){//生产环境
+                    base_url = 'http://gank.io/api/'
+                }else if(flavorName.equals("dev")){//开发环境(模拟)
+                    base_url = 'http://dev.gank.io/api/'
+                }else if(flavorName.equals("sit")){//测试环境(模拟)
+                    base_url = 'http://sit.gank.io/api/'
+                }
+                buildConfigField "String", "BASE_URL", "\"${base_url}\""
+
+                // yourapkname_release_myapk_ver1.0.0_build20130312.apk 输出格式
+                def fileName = "${PRODUCT_NAME}_V${versionName}_${buildTypeName}_${flavorName}_${BUILD_TIME_FORMAT}.apk"
+
+                output.outputFile = new File(outputFile.parent/* + "/${buildTypeName}"*/, fileName)
+            }
+        }
+    }
+
+    productFlavors {
+        //生产环境
+        rls {}
+        //开发环境
+        dev {}
+        //测试环境
+        sit {}
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+        //incremental true
     }
 }
 
@@ -33,4 +127,6 @@ dependencies {
     //leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

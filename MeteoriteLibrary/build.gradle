@@ -26,7 +26,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    //compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
 
     //Simple, pretty and powerful logger for android
@@ -41,4 +41,8 @@ dependencies {
 
     compile 'com.shizhefei:ViewPagerIndicator:1.1.6'
 
+    compile 'com.jakewharton:butterknife:8.8.1' //放lib中方便base类调用。另一部分butterknife-compiler必须放app中，否则控件报空指针
+
+    //Android图片轮播控件
+    compile 'com.youth.banner:banner:1.4.10'  //最新版本
 }

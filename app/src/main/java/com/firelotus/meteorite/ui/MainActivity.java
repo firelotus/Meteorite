@@ -1,6 +1,5 @@
 package com.firelotus.meteorite.ui;
 
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,24 +23,38 @@ import android.widget.TextView;
 import com.firelotus.meteorite.R;
 import com.firelotus.meteorite.ui.content.SubFragment;
 import com.firelotus.meteoritelibrary.base.BaseActivity;
+import com.orhanobut.logger.Logger;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
+import butterknife.BindView;
+
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView tv_content;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.tv_content) TextView tv_content;
+    @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.tabmain_viewPager) ViewPager viewPager;
+    @BindView(R.id.tabmain_indicator) FixedIndicatorView indicator;
+
     private IndicatorViewPager indicatorViewPager;
-    private FixedIndicatorView indicator;
+    private LayoutInflater inflate;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initView() {
+        Log.d("test","==>>initView");
+
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,34 +63,33 @@ public class MainActivity extends BaseActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        tv_content = (TextView) findViewById(R.id.tv_content);
-
-        ViewPager viewPager = (ViewPager) findViewById(R.id.tabmain_viewPager);
-        indicator = (FixedIndicatorView) findViewById(R.id.tabmain_indicator);
-
-        indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
-        indicatorViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
 
         float unSelectSize = 16;
         float selectSize = unSelectSize * 1.2f;
 
-        Resources res = getResources();
-        int selectColor = Color.BLACK;
-        int unSelectColor = Color.GRAY;
+        int selectColor = Color.WHITE;
+        int unSelectColor = Color.DKGRAY;
         indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
 
+        viewPager.setOffscreenPageLimit(4);
 
-        // 设置viewpager保留界面不重新加载的页面数量
-        viewPager.setOffscreenPageLimit(1);
+        indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
+        inflate = LayoutInflater.from(getApplicationContext());
+
+        // 注意这里 的FragmentManager 是 getChildFragmentManager(); 因为是在Fragment里面
+        // 而在activity里面用FragmentManager 是 getSupportFragmentManager()
+        indicatorViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @Override
@@ -130,43 +143,48 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_send) {
             tv_content.setText("send");
         }
-
+        Logger.d(tv_content.getText().toString());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     private class MyAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
-        private String[] tabNames = {"每日推荐", "福利", "干货订制", "安卓"};
-        private LayoutInflater inflater;
-
+        private String[] tabNames = {"每日推荐", "福利", "Android", "IOS"};
         public MyAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
-            inflater = LayoutInflater.from(getApplicationContext());
         }
 
         @Override
         public int getCount() {
-            return tabNames.length;
+            return 4;
         }
 
         @Override
         public View getViewForTab(int position, View convertView, ViewGroup container) {
             if (convertView == null) {
-                convertView = inflater.inflate(R.layout.tab_main, container, false);
+                convertView = inflate.inflate(R.layout.tab_main, container, false);
             }
             TextView textView = (TextView) convertView;
             textView.setText(tabNames[position]);
-            return textView;
+            return convertView;
         }
 
         @Override
         public Fragment getFragmentForPage(int position) {
             SubFragment subFragment = new SubFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt(SubFragment.INDEX, position);
+            bundle.putString(SubFragment.INTENT_STRING_TABNAME, tabNames[position]);
+            bundle.putInt(SubFragment.INTENT_INT_POSITION, position);
             subFragment.setArguments(bundle);
             return subFragment;
+            /*SecondLayerFragment subFragment = new SecondLayerFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(SubFragment.INTENT_STRING_TABNAME, tabNames[position]);
+            bundle.putInt(SubFragment.INTENT_INT_POSITION, position);
+            subFragment.setArguments(bundle);
+            return subFragment;*/
         }
     }
+
 }

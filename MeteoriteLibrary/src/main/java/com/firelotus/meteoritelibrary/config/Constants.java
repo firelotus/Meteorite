@@ -1,4 +1,4 @@
-package com.firelotus.meteoritelibrary.constants;
+package com.firelotus.meteoritelibrary.config;
 
 /**
  * Created by firelotus on 2017/10/14.
