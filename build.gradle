@@ -18,6 +18,10 @@ allprojects {
 
         //dbflow
         maven { url "https://jitpack.io" }
+
+        //Glide
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
     }
 }
 

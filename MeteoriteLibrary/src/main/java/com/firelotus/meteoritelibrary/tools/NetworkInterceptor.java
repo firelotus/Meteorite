@@ -61,6 +61,9 @@ public class NetworkInterceptor implements Interceptor{
                 MLog.d("NetworkInterceptor Request ==>>  " + request.url().toString() + "?" + sb.toString());
                 Logger.d("NetworkInterceptor Request ==>>  " + request.url().toString() + "?" + sb.toString());
             }
+        }else if("GET".equals(method)){
+            MLog.d("NetworkInterceptor Request ==>>  " + request.url().toString());
+            Logger.d("NetworkInterceptor Request ==>>  " + request.url().toString());
         }
 
         Response originalResponse = chain.proceed(request);

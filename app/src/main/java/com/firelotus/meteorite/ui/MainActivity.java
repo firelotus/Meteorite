@@ -52,7 +52,6 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initView() {
         Log.d("test","==>>initView");
-
         setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {

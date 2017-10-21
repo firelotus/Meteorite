@@ -18,6 +18,7 @@
  - 14、热修复 
  - 15、升级更新 
  - 16、极光推送
+ - 17、butterknife
  
  <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/log.gif"></img>
  <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/signedApk.gif"></img>
