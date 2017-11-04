@@ -3,6 +3,7 @@ package com.firelotus.meteorite.ui;
 import android.content.Context;
 import android.content.Intent;
 
+import com.firelotus.meteorite.R;
 import com.firelotus.meteoritelibrary.base.BaseActivity;
 
 /**
@@ -13,12 +14,13 @@ public class AboutActivity extends BaseActivity{
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_about;
     }
 
     @Override
     protected void initView() {
-
+        //showContentView();
+        //setToolBarTitle("关于");
     }
 
     @Override

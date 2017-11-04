@@ -13,7 +13,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.firelotus.meteorite"
         minSdkVersion 15
@@ -21,6 +21,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        flavorDimensions "debug","release" //解决Gradle3.0 Error:All flavors must now belong to a named flavor
     }
     signingConfigs {
         config {
@@ -89,18 +90,24 @@ android {
                 // yourapkname_release_myapk_ver1.0.0_build20130312.apk 输出格式
                 def fileName = "${PRODUCT_NAME}_V${versionName}_${buildTypeName}_${flavorName}_${BUILD_TIME_FORMAT}.apk"
 
-                output.outputFile = new File(outputFile.parent/* + "/${buildTypeName}"*/, fileName)
+                outputFile = new File(outputFile.parent/* + "/${buildTypeName}"*/, fileName)
             }
         }
     }
 
     productFlavors {
         //生产环境
-        rls {}
+        rls {
+            dimension "release"
+        }
         //开发环境
-        dev {}
+        dev {
+            dimension "debug"
+        }
         //测试环境
-        sit {}
+        sit {
+            dimension "debug"
+        }
     }
 
     lintOptions {

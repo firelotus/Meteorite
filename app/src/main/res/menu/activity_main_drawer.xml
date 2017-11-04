@@ -3,29 +3,29 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
             android:icon="@drawable/home"
             android:title="主页" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_set"
             android:icon="@drawable/set"
             android:title="设置" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_about"
             android:icon="@drawable/information"
             android:title="关于陨石" />
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_comments"
             android:icon="@drawable/comments"
             android:title="问题反馈" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_login"
             android:icon="@drawable/login"
             android:title="登录GitHub" />
     </group>
 
     <item
-        android:id="@+id/nav_send"
+        android:id="@+id/nav_logout"
         android:icon="@drawable/logout"
         android:title="退出应用" />
 

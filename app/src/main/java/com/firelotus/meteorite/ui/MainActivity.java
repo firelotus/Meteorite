@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected int getLayoutId() {
+        //setSupportActionBar(false);
         return R.layout.activity_main;
     }
 
@@ -53,12 +54,14 @@ public class MainActivity extends BaseActivity
     protected void initView() {
         Log.d("test","==>>initView");
         setSupportActionBar(toolbar);
+        //showContentView();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                AboutActivity.start(getApplication());
             }
         });
 
@@ -129,17 +132,18 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             tv_content.setText("camera");
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_about) {
             tv_content.setText("gallery");
-        } else if (id == R.id.nav_slideshow) {
+            AboutActivity.start(getApplicationContext());
+        } else if (id == R.id.nav_login) {
             tv_content.setText("slideshow");
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_set) {
             tv_content.setText("manage");
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_comments) {
             tv_content.setText("share");
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
             tv_content.setText("send");
         }
         Logger.d(tv_content.getText().toString());

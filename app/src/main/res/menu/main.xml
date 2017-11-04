@@ -6,4 +6,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <!--item
+        android:id="@+id/action_add"
+        android:icon="@drawable/viewlist"
+        android:title="添加"
+        app:showAsAction="ifRoom"/-->
 </menu>
