@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: '../dependencies.gradle'
 def PRODUCT_NAME = "陨石"
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
@@ -12,16 +13,16 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     defaultConfig {
         applicationId "com.firelotus.meteorite"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        flavorDimensions "debug","release" //解决Gradle3.0 Error:All flavors must now belong to a named flavor
+        flavorDimensions "" //解决Gradle3.0 Error:All flavors must now belong to a named flavor
     }
     signingConfigs {
         config {
@@ -97,17 +98,11 @@ android {
 
     productFlavors {
         //生产环境
-        rls {
-            dimension "release"
-        }
+        rls {}
         //开发环境
-        dev {
-            dimension "debug"
-        }
+        dev {}
         //测试环境
-        sit {
-            dimension "debug"
-        }
+        sit {}
     }
 
     lintOptions {
@@ -119,24 +114,29 @@ android {
         //incremental true
     }
 }
-def dbflow_version = "4.0.5"
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile "com.android.support:appcompat-v7:${versions.supportLib}"
+    compile "com.android.support:design:${versions.supportLib}"
+    compile "com.android.support.constraint:constraint-layout:${versions.constraintLayout}"
     testCompile 'junit:junit:4.12'
     compile project(path: ':MeteoriteLibrary')
 
     //leakcanary
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakcanary}"
 
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterKnife}"
 
     compile "com.android.support:support-annotations:25.1.0"
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${versions.dbflow}"
+
+    //直接查看手数据库   手机http://手机IP:8080    手机需与电脑在同一网段
+    debugCompile "com.amitshekhar.android:debug-db:${versions.debugDb}",{
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
 }
