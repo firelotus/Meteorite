@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected int getLayoutId() {
-        //setSupportActionBar(false);
+        setSupportActionBar(false);
         return R.layout.activity_main;
     }
 
@@ -54,7 +54,6 @@ public class MainActivity extends BaseActivity
     protected void initView() {
         Log.d("test","==>>initView");
         setSupportActionBar(toolbar);
-        //showContentView();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +78,7 @@ public class MainActivity extends BaseActivity
         int unSelectColor = Color.DKGRAY;
         indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
 
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(1);
 
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         inflate = LayoutInflater.from(getApplicationContext());

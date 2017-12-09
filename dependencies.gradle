@@ -20,9 +20,9 @@ ext.versions = [
         banner            : '1.4.10',
         glide             : '4.2.0',
         butterKnife       : '8.8.1',
-        updateApp         : '3.3.+',
-        materialDialogs   : '0.9.6.+',
-        debugDb           : '1.0.+',
-        circleimageview   : '2.2.+',
+        updateApp         : '3.3.8',
+        materialDialogs   : '0.9.6.0',
+        debugDb           : '1.0.1',
+        circleimageview   : '2.2.0',
         utilcode          : '1.9.10'
 ]

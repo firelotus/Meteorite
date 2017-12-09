@@ -1,81 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/rl_root_root"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/colorPageBg">
-
-<LinearLayout
-    android:id="@+id/ll_root"
+    android:id="@+id/rl_root_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPageBg"
-    android:orientation="vertical">
+    android:background="@color/colorPageBg">
 
-    <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/tool_bar"
+    <LinearLayout
+        android:id="@+id/ll_root"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/side_nav_bar"
-        app:contentInsetStart="0.0dp"
-        app:layout_scrollFlags="enterAlways|scroll"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        />
+        android:layout_height="match_parent"
+        android:background="@color/colorPageBg"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <!--加载失败-->
-        <LinearLayout
-            android:id="@+id/ll_error_refresh"
+        <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/tool_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/side_nav_bar"
+            app:contentInsetStart="0.0dp"
+            app:layout_scrollFlags="enterAlways|scroll"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ToolbarStyle" />
 
-            <ImageView
-                android:id="@+id/img_err"
+        <RelativeLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <!--加载失败-->
+            <LinearLayout
+                android:id="@+id/ll_error_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/img_err"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/load_err" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="加载失败,点击重试"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <!--加载中..-->
+            <LinearLayout
+                android:id="@+id/ll_progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/load_err" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="80dp"
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="加载失败,点击重试"
-                android:textSize="15sp" />
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/img_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/loading_anim" />
 
-        <!--加载中..-->
-        <LinearLayout
-            android:id="@+id/ll_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
-            android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="努力加载中..."
+                    android:textColor="@color/colorTabText"
+                    android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/img_progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/loading_anim" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="努力加载中..."
-                android:textColor="@color/colorTabText"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-    </RelativeLayout>
-</LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
 </FrameLayout>

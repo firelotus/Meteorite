@@ -10,7 +10,12 @@ import com.firelotus.meteoritelibrary.base.BaseActivity;
  * Created by firelotus on 2017/10/15.
  */
 
-public class AboutActivity extends BaseActivity{
+public class AboutActivity extends BaseActivity {
+
+    public static void start(Context mContext) {
+        Intent intent = new Intent(mContext, AboutActivity.class);
+        mContext.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -19,8 +24,8 @@ public class AboutActivity extends BaseActivity{
 
     @Override
     protected void initView() {
-        //showContentView();
-        //setToolBarTitle("关于");
+        showLoading();
+        setToolBarTitle("关于");
     }
 
     @Override
@@ -28,8 +33,4 @@ public class AboutActivity extends BaseActivity{
 
     }
 
-    public static void start(Context mContext) {
-        Intent intent = new Intent(mContext, AboutActivity.class);
-        mContext.startActivity(intent);
-    }
 }

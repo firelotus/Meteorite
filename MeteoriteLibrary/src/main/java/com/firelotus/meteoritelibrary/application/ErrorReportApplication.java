@@ -2,7 +2,10 @@ package com.firelotus.meteoritelibrary.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Handler;
 
+import com.blankj.utilcode.util.Utils;
+import com.firelotus.meteoritelibrary.tools.AppStatusTracker;
 import com.firelotus.meteoritelibrary.utils.ExceptionWriter;
 
 /**
@@ -11,9 +14,9 @@ import com.firelotus.meteoritelibrary.utils.ExceptionWriter;
  */
 
 public class ErrorReportApplication extends Application{
+    protected static Handler mHandler;
     private Thread.UncaughtExceptionHandler exceptionHandler;
     private Context mContext;
-
     private Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
         @Override
         public void uncaughtException(Thread thread, Throwable ex) {
@@ -22,10 +25,17 @@ public class ErrorReportApplication extends Application{
         }
     };
 
+    public static Handler getMainThreadHandler() {
+        return mHandler;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        mHandler = new Handler();
+        AppStatusTracker.init(this);
+        Utils.init(this);
         exceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(handler);
     }
