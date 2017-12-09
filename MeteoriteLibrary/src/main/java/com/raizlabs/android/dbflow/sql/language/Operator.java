@@ -386,7 +386,7 @@ public class Operator<T> extends BaseOperator implements IOperator<T> {
     @SuppressWarnings("unchecked")
     @Override
     public In notIn(@NonNull BaseModelQueriable firstBaseModelQueriable, @NonNull BaseModelQueriable[] baseModelQueriables) {
-        return new In(this, firstBaseModelQueriable, false, (Object[]) baseModelQueriables);
+        return new In(this, firstBaseModelQueriable, false, baseModelQueriables);
     }
 
     @NonNull
@@ -822,8 +822,7 @@ public class Operator<T> extends BaseOperator implements IOperator<T> {
          * @param isIn          if this is an {@link Operator.Operation#IN}
          *                      statement or a {@link Operator.Operation#NOT_IN}
          */
-        @SafeVarargs
-        private In(Operator<T> operator, T firstArgument, boolean isIn, T... arguments) {
+        private In(Operator<T> operator, T firstArgument, boolean isIn, T[] arguments) {
             super(operator.columnAlias());
             inArguments.add(firstArgument);
             Collections.addAll(inArguments, arguments);
