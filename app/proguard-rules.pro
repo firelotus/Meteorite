@@ -195,6 +195,9 @@
 -keep class com.youth.banner.** {
     *;
  }
-
+# AndroidUtilCode 的混淆代码
+-keep class com.blankj.utilcode.** { *; }
+-keepclassmembers class com.blankj.utilcode.** { *; }
+-dontwarn com.blankj.utilcode.**
 
 # Java Bean 统一使用@Keep进行混淆配置

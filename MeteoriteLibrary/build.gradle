@@ -43,11 +43,27 @@ dependencies {
 
     compile "com.jakewharton:butterknife:${versions.butterKnife}" //放lib中方便base类调用。另一部分butterknife-compiler必须放app中，否则控件报空指针
 
-    //Android图片轮播控件
+    //Android图片轮播控件  https://github.com/youth5201314/banner
     compile "com.youth.banner:banner:${versions.banner}"  //最新版本
 
     compile "com.github.Raizlabs.DBFlow:dbflow-core:${versions.dbflow}"
 
     compile "com.github.bumptech.glide:glide:${versions.glide}"
     annotationProcessor "com.github.bumptech.glide:compiler:${versions.glide}"
+
+    //https://github.com/hdodenhof/CircleImageView
+    compile "de.hdodenhof:circleimageview:${versions.circleimageview}"
+
+    //APP升级  https://github.com/WVector/AppUpdate
+    compile "com.qianwen:update-app:${versions.updateApp}"
+
+    //https://github.com/afollestad/material-dialogs
+    //解决范型findViewById冲突问题
+    compile ("com.afollestad.material-dialogs:core:${versions.materialDialogs}"){
+        exclude group: 'com.android.support'
+    }
+
+    //https://github.com/Blankj/AndroidUtilCode
+    compile "com.blankj:utilcode:${versions.utilcode}"
+
 }

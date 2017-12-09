@@ -5,6 +5,7 @@ buildscript {
     repositories {
         maven { url "https://jitpack.io" }//novate
         jcenter()
+        google()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:${versions.gradlePlugin}"
@@ -23,6 +24,7 @@ allprojects {
         //Glide
         mavenCentral()
         maven { url 'https://maven.google.com' }
+        google()
     }
 }
 

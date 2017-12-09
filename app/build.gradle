@@ -132,9 +132,10 @@ dependencies {
 
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterKnife}"
 
-    compile "com.android.support:support-annotations:25.1.0"
+    compile "com.android.support:support-annotations:${versions.supportLib}"
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${versions.dbflow}"
 
+    ////https://github.com/amitshekhariitbhu/Android-Debug-Database
     //直接查看手数据库   手机http://手机IP:8080    手机需与电脑在同一网段
     debugCompile "com.amitshekhar.android:debug-db:${versions.debugDb}",{
         exclude group: 'com.google.code.gson', module: 'gson'
