@@ -17,6 +17,8 @@ public interface IBaseView {
 
     void showError();
 
+    //void showEmpty();//获取数据为空时
+
 
     //showerror与showloading配对使用。
     //loading成对使用大的角度如fragment

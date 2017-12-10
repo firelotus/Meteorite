@@ -180,12 +180,6 @@ public class MainActivity extends BaseActivity
             bundle.putInt(SubFragment.INTENT_INT_POSITION, position);
             subFragment.setArguments(bundle);
             return subFragment;
-            /*SecondLayerFragment subFragment = new SecondLayerFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString(SubFragment.INTENT_STRING_TABNAME, tabNames[position]);
-            bundle.putInt(SubFragment.INTENT_INT_POSITION, position);
-            subFragment.setArguments(bundle);
-            return subFragment;*/
         }
     }
 

@@ -240,7 +240,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         if (activity.getVisibility() != View.GONE) {
             activity.setVisibility(View.GONE);
         }
+        onError();
     }
 
+    /**
+     * 出错回调处理
+     */
+    protected void onError(){
 
+    }
 }

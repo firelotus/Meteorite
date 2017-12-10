@@ -132,28 +132,12 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
      */
     protected abstract void initView();
 
-    private void isCanLoadData(){
-        Log.d("Meteorite","!isInit="+(!isInit)+"    getUserVisibleHint() = "+getUserVisibleHint()+"    "+this.getClass().getSimpleName());
-        if(!isInit){
-            return;
-        }
-        if(isVisible){
-            initData();
-            isLoad = true;
-        }
-    }
-
     /**
      * 加载失败后点击后的操作
      */
     protected void onRefresh() {
 
     }
-
-    /**
-     * 加载要显示的数据
-     */
-    protected abstract void initData();
 
     @Override
     public void onResume() {
@@ -179,6 +163,22 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
      * @return
      */
     protected abstract int getLayoutId();
+
+    private void isCanLoadData(){
+        Log.d("Meteorite","!isInit="+(!isInit)+"    getUserVisibleHint() = "+getUserVisibleHint()+"    "+this.getClass().getSimpleName());
+        if(!isInit){
+            return;
+        }
+        if(isVisible){
+            initData();
+            isLoad = true;
+        }
+    }
+
+    /**
+     * 加载要显示的数据
+     */
+    protected abstract void initData();
 
     /**
      * fragment中可以通过这个方法直接找到需要的view，而不需要进行类型强转
@@ -274,5 +274,14 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
         if (contentView.getVisibility() != View.GONE) {
             contentView.setVisibility(View.GONE);
         }
+
+        onError();
+    }
+
+    /**
+     * 出错回调处理
+     */
+    protected void onError(){
+
     }
 }

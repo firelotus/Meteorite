@@ -1,6 +1,5 @@
 package com.firelotus.meteorite.ui.content;
 
-import com.firelotus.meteorite.ui.bean.EveryDayBean;
 import com.firelotus.meteorite.ui.bean.GankBean;
 import com.firelotus.meteoritelibrary.base.BasePresenter;
 import com.firelotus.meteoritelibrary.base.BaseView;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 public interface SubContract {
     interface View extends BaseView<Presenter> {
         void onContentSuccess(ArrayList<GankBean> list);
-        void onEveryDaySuccess(EveryDayBean everyDayBean);
+        void onEveryDaySuccess(ArrayList<GankBean> list);
     }
     interface Presenter extends BasePresenter {
         void getContent(String type,int pageIndex, int pageSize);

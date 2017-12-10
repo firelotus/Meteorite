@@ -1,19 +1,26 @@
 package com.firelotus.meteorite.ui.content;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firelotus.meteorite.R;
-import com.firelotus.meteorite.ui.bean.EveryDayBean;
 import com.firelotus.meteorite.ui.bean.GankBean;
 import com.firelotus.meteoritelibrary.base.BaseFragment;
 import com.firelotus.meteoritelibrary.tools.GlideImageLoader;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.orhanobut.logger.Logger;
 import com.youth.banner.Banner;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -28,6 +35,9 @@ public class SubFragment extends BaseFragment implements SubContract.View{
     @BindView(R.id.xRecyclerView) XRecyclerView xRecyclerView;
     @BindView(R.id.banner) Banner banner;
     @BindView(R.id.fragment_mainTab_item_textView) TextView textView;
+    private CommonAdapter<GankBean> adapter;
+    private List<GankBean> gankBeans = new ArrayList<>();
+
     private SubContract.Presenter presenter;
     private int pos = 0;
     private int pageIndex = 1;
@@ -41,16 +51,6 @@ public class SubFragment extends BaseFragment implements SubContract.View{
     @Override
     public void setPresenter(SubContract.Presenter presenter) {
         this.presenter = presenter;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_sub;
     }
 
     @Override
@@ -104,9 +104,69 @@ public class SubFragment extends BaseFragment implements SubContract.View{
 
         tabName = getArguments().getString(INTENT_STRING_TABNAME);
         position = getArguments().getInt(INTENT_INT_POSITION);
-        textView.setText(position+"加载中....");
+        //textView.setText(position+"加载中....");
+        if(position == 1){
+            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            xRecyclerView.setLayoutManager(staggeredGridLayoutManager);
+        }else{
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            xRecyclerView.setLayoutManager(layoutManager);
+        }
+
+        xRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        xRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+
+        adapter = new CommonAdapter<GankBean>(activity,R.layout.item_sub,gankBeans) {
+            @Override
+            protected void convert(ViewHolder holder, GankBean gankBean, int position) {
+                if(type.equals("福利")){
+                    holder.getView(R.id.iv_all_welfare).setVisibility(View.VISIBLE);
+                    holder.getView(R.id.ll_welfare_other).setVisibility(View.GONE);
+                    holder.getView(R.id.rl_welfare_other).setVisibility(View.GONE);
+                    Glide.with(activity).load(gankBean.getUrl()).into((ImageView)holder.getView(R.id.iv_all_welfare));
+                } else {
+                    holder.getView(R.id.iv_all_welfare).setVisibility(View.GONE);
+                }
+
+                holder.setText(R.id.tv_content_type,gankBean.getType());
+                holder.setText(R.id.tv_des,gankBean.getDesc());
+                holder.setText(R.id.tv_who,gankBean.getWho());
+                holder.setText(R.id.tv_time,gankBean.getCreatedAt());
+            }
+        };
+        xRecyclerView.setAdapter(adapter);
+        xRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                pageIndex = 1;
+                initData();
+            }
+
+            @Override
+            public void onLoadMore() {
+                pageIndex++;
+                initData();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onRefresh() {
+        initData();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
     
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_sub;
+    }
+
     @Override
     protected void initData() {
         presenter = new SubPresenter(getActivity(),this);
@@ -134,12 +194,48 @@ public class SubFragment extends BaseFragment implements SubContract.View{
     }
 
     @Override
-    public void onContentSuccess(ArrayList<GankBean> list) {
+    protected void onError() {
+        if(pageIndex > 1){
+            pageIndex--;
+        }
 
+        Logger.d("onError  pageIndex="+pageIndex);
     }
 
     @Override
-    public void onEveryDaySuccess(EveryDayBean everyDayBean) {
+    public void onContentSuccess(ArrayList<GankBean> list) {
+        if(list != null){
+            if (pageIndex == 1) {
+                //第一页
+                this.gankBeans.clear();
+                if (list.size() < pageSize) {
+                    //如果返回结果小于页面显示数量，无需加load
+                    if (list.size() < 1) {
+                        //tv_empty.setVisibility(View.VISIBLE);
+                    } else {
+                        //tv_empty.setVisibility(View.GONE);
+                    }
+                }
+                xRecyclerView.refreshComplete();
+            }else{
+                //非第一页
+                if (list.size() < pageSize) {
+                    //如果返回结果小于页面显示数量，无需加load
+                    xRecyclerView.setNoMore(true);
+                }else {
+                    xRecyclerView.loadMoreComplete();
+                }
+            }
+            this.gankBeans.addAll(list);
+            adapter.notifyDataSetChanged();
+        }
+    }
 
+    @Override
+    public void onEveryDaySuccess(ArrayList<GankBean> list) {
+        this.gankBeans.clear();
+        this.gankBeans.addAll(list);
+        adapter.notifyDataSetChanged();
+        xRecyclerView.setNoMore(true);
     }
 }
