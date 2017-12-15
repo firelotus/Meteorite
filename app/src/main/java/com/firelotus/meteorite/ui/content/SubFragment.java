@@ -160,6 +160,7 @@ public class SubFragment extends BaseFragment implements SubContract.View{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        presenter.detach();
     }
     
     @Override

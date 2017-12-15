@@ -58,12 +58,12 @@ public class NetworkInterceptor implements Interceptor{
                     sb.append(body.encodedName(i) + "=" + body.encodedValue(i) + "&");
                 }
                 sb.delete(sb.length() - 1, sb.length());
-                MLog.d("NetworkInterceptor Request ==>>  " + request.url().toString() + "?" + sb.toString());
-                Logger.d("NetworkInterceptor Request ==>>  " + request.url().toString() + "?" + sb.toString());
+                //MLog.d("NetworkInterceptor Request ==>>  " + request.url().toString() + "?" + sb.toString());
+                //Logger.d("NetworkInterceptor Request ==>>  " + request.url().toString() + "?" + sb.toString());
             }
         }else if("GET".equals(method)){
-            MLog.d("NetworkInterceptor Request ==>>  " + request.url().toString());
-            Logger.d("NetworkInterceptor Request ==>>  " + request.url().toString());
+            //MLog.d("NetworkInterceptor Request ==>>  " + request.url().toString());
+            //Logger.d("NetworkInterceptor Request ==>>  " + request.url().toString());
         }
 
         Response originalResponse = chain.proceed(request);
@@ -82,7 +82,7 @@ public class NetworkInterceptor implements Interceptor{
         }
         String bodyString = buffer.clone().readString(charset);
         List<String> segments = request.url().pathSegments();
-        MLog.d("NetworkInterceptor Response ==>>  " + segments.get(segments.size() - 1) + " : " + bodyString);
+        //MLog.d("NetworkInterceptor Response ==>>  " + segments.get(segments.size() - 1) + " : " + bodyString);
         Logger.d("NetworkInterceptor Response ==>>  " + segments.get(segments.size() - 1));
         Logger.json(bodyString);
         Type type = new TypeToken<NovateResponse>() {

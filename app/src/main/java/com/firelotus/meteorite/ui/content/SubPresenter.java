@@ -118,4 +118,9 @@ public class SubPresenter implements SubContract.Presenter {
         });
         view.hideProgress();
     }
+
+    @Override
+    public void detach() {
+        view = null;
+    }
 }

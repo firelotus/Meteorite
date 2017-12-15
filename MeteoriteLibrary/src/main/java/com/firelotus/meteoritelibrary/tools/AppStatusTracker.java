@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import com.orhanobut.logger.Logger;
 
+import java.util.Stack;
+
 /**
  * 对Acitivity的生命周期进行集中处理
  * Created by firelotus on 2017/12/9.
@@ -14,9 +16,11 @@ import com.orhanobut.logger.Logger;
 public class AppStatusTracker implements Application.ActivityLifecycleCallbacks {
     private static AppStatusTracker tracker;
     private Application application;
+    private Stack<Activity> stack;
 
     private AppStatusTracker(Application application){
         this.application = application;
+        stack = new Stack<>();
         application.registerActivityLifecycleCallbacks(this);
     }
 
@@ -27,6 +31,7 @@ public class AppStatusTracker implements Application.ActivityLifecycleCallbacks 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         Logger.d(activity.getClass().getSimpleName(),"onActivityCreated");
+        stack.add(activity);
     }
 
     @Override
@@ -57,5 +62,6 @@ public class AppStatusTracker implements Application.ActivityLifecycleCallbacks 
     @Override
     public void onActivityDestroyed(Activity activity) {
         Logger.d(activity.getClass().getSimpleName(),"onActivityDestroyed");
+        stack.remove(stack);
     }
 }
