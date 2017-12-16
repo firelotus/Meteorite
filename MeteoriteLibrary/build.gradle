@@ -94,5 +94,7 @@ dependencies {
     //https://github.com/chrisbanes/PhotoView
     compile "com.github.chrisbanes:PhotoView:${versions.PhotoView}"
 
+    //test
+
 
 }
