@@ -1,23 +1,15 @@
 package com.firelotus.meteorite.ui.content;
 
-import android.content.Context;
-
-import com.firelotus.meteorite.BuildConfig;
 import com.firelotus.meteorite.ui.bean.GankBean;
-import com.firelotus.meteoritelibrary.base.MCallBack;
-import com.firelotus.meteoritelibrary.tools.MLog;
+import com.firelotus.meteoritelibrary.base.ICallBack;
 import com.firelotus.meteoritelibrary.tools.MNovateResponse;
-import com.firelotus.meteoritelibrary.tools.NetworkInterceptor;
+import com.firelotus.meteoritelibrary.tools.NovateManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.tamic.novate.BaseSubscriber;
-import com.tamic.novate.Novate;
-import com.tamic.novate.Throwable;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -30,40 +22,31 @@ import okhttp3.ResponseBody;
 
 public class SubModel implements ISubContract.Modle {
 
-    private Novate novate;
-    private Context context;
-    public SubModel(Context context){
-        this.context = context;
-        novate = new Novate.Builder(context)
-                .baseUrl(BuildConfig.BASE_URL)
-                .addInterceptor(new NetworkInterceptor(context))
-                .build();
+    public SubModel(){
     }
 
     @Override
-    public void getContent(String type, int pageIndex, int pageSize, final MCallBack callBack) {
+    public void getContent(String type, int pageIndex, int pageSize, final ICallBack<ArrayList<GankBean>> callBack) {
         TreeMap<String, Object> parameters = new TreeMap<>();
         //福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
-        novate.get("data/"+type+"/"+pageSize+"/"+pageIndex,parameters,new BaseSubscriber<ResponseBody>(context){
+        NovateManager.INSTANCE.mGet("data/" + type + "/" + pageSize + "/" + pageIndex, parameters, new ICallBack<ResponseBody>() {
             @Override
-            public void onNext(ResponseBody responseBody) {
+            public void onSusscess(ResponseBody result) {
                 try {
-                    String jstr = new String(responseBody.bytes());
-                    MLog.d(jstr);
+                    String jstr = new String(result.bytes());
+                    //MLog.d(jstr);
                     Type type = new TypeToken<MNovateResponse<ArrayList<GankBean>>>() {
                     }.getType();
                     MNovateResponse<ArrayList<GankBean>> response = new Gson().fromJson(jstr, type);
-                    //MLog.d(response.toString());
-                    callBack.onSuccess(response.getResults());
-                } catch (IOException e) {
+                    callBack.onSusscess(response.getResults());
+                } catch (Exception e) {
                     e.printStackTrace();
                     callBack.onError();
                 }
-
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onError() {
                 callBack.onError();
             }
         });
@@ -71,14 +54,14 @@ public class SubModel implements ISubContract.Modle {
     }
 
     @Override
-    public void getEveryDay(String year, String month, String day, final MCallBack callBack) {
+    public void getEveryDay(String year, String month, String day, final ICallBack<ArrayList<GankBean>> callBack) {
         TreeMap<String, Object> parameters = new TreeMap<>();
-        novate.get("day/"+year+"/"+month+"/"+day,parameters,new BaseSubscriber<ResponseBody>(context){
+        NovateManager.INSTANCE.mGet("day/"+year+"/"+month+"/"+day, parameters, new ICallBack<ResponseBody>() {
             @Override
-            public void onNext(ResponseBody responseBody) {
+            public void onSusscess(ResponseBody result) {
                 try {
-                    String jstr = new String(responseBody.bytes());
-                    MLog.d(jstr);
+                    String jstr = new String(result.bytes());
+                    //MLog.d(jstr);
                     JSONObject jsonObject = new JSONObject(jstr);
                     JSONArray category = jsonObject.getJSONArray("category");
                     JSONObject results = jsonObject.getJSONObject("results");
@@ -104,16 +87,18 @@ public class SubModel implements ISubContract.Modle {
                         }*/
                     }
                     //MLog.d(everyDayBean.toString());
-                    callBack.onSuccess(gankBeans);
+                    callBack.onSusscess(gankBeans);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    callBack.onError();
                 }
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onError() {
                 callBack.onError();
             }
         });
+
     }
 }

@@ -1,26 +1,10 @@
 package com.firelotus.meteorite.ui.mvp;
 
-import android.content.Context;
-
-import com.firelotus.meteorite.BuildConfig;
 import com.firelotus.meteorite.ui.bean.GankBean;
 import com.firelotus.meteorite.ui.content.IMvpContract;
 import com.firelotus.meteoritelibrary.base.ICallBack;
-import com.firelotus.meteoritelibrary.tools.NetworkInterceptor;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.tamic.novate.BaseSubscriber;
-import com.tamic.novate.Novate;
-import com.tamic.novate.Throwable;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.TreeMap;
-
-import okhttp3.ResponseBody;
 
 /**
  * Created by firelotus on 2017/10/15.
@@ -29,24 +13,16 @@ import okhttp3.ResponseBody;
 public class MvpPresenter implements IMvpContract.Presenter{
     private IMvpContract.View view;
     private IMvpContract.Model model;
-    private Context context;
-    private Novate novate;
 
-
-    public MvpPresenter(Context context, IMvpContract.View view) {
+    public MvpPresenter(IMvpContract.View view) {
         this.view = view;
-        model = new MvpModel(context);
-        this.context = context;
-        novate = new Novate.Builder(context)
-                .baseUrl(BuildConfig.BASE_URL)
-                .addInterceptor(new NetworkInterceptor(context))
-                .build();
+        model = new MvpModel();
     }
 
 
     @Override
     public void getContent(String type, int pageIndex, int pageSize) {
-        model.loadContent(context, type, pageIndex, pageSize, new ICallBack<ArrayList<GankBean>>/*onContentListener*/() {
+        model.loadContent(type, pageIndex, pageSize, new ICallBack<ArrayList<GankBean>>/*onContentListener*/() {
             @Override
             public void /*Content*/onSusscess(ArrayList<GankBean> list) {
                 view.onContentSuccess(list);
@@ -63,47 +39,15 @@ public class MvpPresenter implements IMvpContract.Presenter{
     @Override
     public void getEveryDay(String year, String month, String day) {
         view.showProgress();
-        TreeMap<String, Object> parameters = new TreeMap<>();
-        novate.get("day/"+year+"/"+month+"/"+day,parameters,new BaseSubscriber<ResponseBody>(context){
+        model.loadEveryDay(year, month, day, new ICallBack<ArrayList<GankBean>>() {
             @Override
-            public void onNext(ResponseBody responseBody) {
-                try {
-                    String jstr = new String(responseBody.bytes());
-                    //MLog.d(jstr);
-                    JSONObject jsonObject = new JSONObject(jstr);
-                    JSONArray category = jsonObject.getJSONArray("category");
-                    JSONObject results = jsonObject.getJSONObject("results");
-                    ArrayList<GankBean> gankBeans = new ArrayList<>();
-                    Type type = new TypeToken<ArrayList<GankBean>>() {}.getType();
-                    for(int i = 0; i < category.length(); i++){
-                        if("Android".equals(category.get(i))){
-                            gankBeans.addAll((ArrayList<GankBean>)new Gson().fromJson(String.valueOf(results.getJSONArray("Android")), type));
-                        }else if("iOS".equals(category.get(i))){
-                            gankBeans.addAll((ArrayList<GankBean>)new Gson().fromJson(String.valueOf(results.getJSONArray("iOS")), type));
-                        }else if("前端".equals(category.get(i))){
-                            gankBeans.addAll((ArrayList<GankBean>)new Gson().fromJson(String.valueOf(results.getJSONArray("前端")), type));
-                        }else if("App".equals(category.get(i))){
-                            gankBeans.addAll((ArrayList<GankBean>)new Gson().fromJson(String.valueOf(results.getJSONArray("App")), type));
-                        }else if("休息视频".equals(category.get(i))){
-                            gankBeans.addAll((ArrayList<GankBean>)new Gson().fromJson(String.valueOf(results.getJSONArray("休息视频")), type));
-                        }else if("拓展资源".equals(category.get(i))){
-                            gankBeans.addAll((ArrayList<GankBean>)new Gson().fromJson(String.valueOf(results.getJSONArray("拓展资源")), type));
-                        }else if("瞎推荐".equals(category.get(i))){
-                            gankBeans.addAll((ArrayList<GankBean>)new Gson().fromJson(String.valueOf(results.getJSONArray("瞎推荐")), type));
-                        }/*else if("福利".equals(category.get(i))){
-                            gankBeans.addAll((ArrayList<GankBean>)new Gson().fromJson(String.valueOf(results.getJSONArray("福利")), type));
-                        }*/
-                    }
-                    //MLog.d(everyDayBean.toString());
-                    view.onEveryDaySuccess(gankBeans);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onSusscess(ArrayList<GankBean> result) {
+                view.onEveryDaySuccess(result);
             }
 
             @Override
-            public void onError(Throwable e) {
-
+            public void onError() {
+                view.showError();
             }
         });
         view.hideProgress();

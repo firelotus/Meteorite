@@ -1,10 +1,7 @@
 package com.firelotus.meteorite.ui.content;
 
-import android.content.Context;
-
 import com.firelotus.meteorite.ui.bean.GankBean;
-import com.firelotus.meteoritelibrary.base.MCallBack;
-import com.tamic.novate.Novate;
+import com.firelotus.meteoritelibrary.base.ICallBack;
 
 import java.util.ArrayList;
 
@@ -14,22 +11,19 @@ import java.util.ArrayList;
 
 public class SubPresenter implements ISubContract.Presenter {
     private ISubContract.View view;
-    private Context context;
-    private Novate novate;
     private ISubContract.Modle modle;
 
-    public SubPresenter(Context context, ISubContract.View view) {
+    public SubPresenter(ISubContract.View view) {
         this.view = view;
-        this.context = context;
-        this.modle = new SubModel(context);
+        this.modle = new SubModel();
     }
     @Override
     public void dealContent(String type, int pageIndex, int pageSize) {
         view.showLoading();
-        modle.getContent(type, pageIndex, pageSize, new MCallBack() {
+        modle.getContent(type, pageIndex, pageSize, new ICallBack<ArrayList<GankBean>>() {
             @Override
-            public <T> void onSuccess(T result) {
-                view.onContentSuccess((ArrayList<GankBean>)result);
+            public void onSusscess(ArrayList<GankBean> result) {
+                view.onContentSuccess(result);
             }
 
             @Override
@@ -43,10 +37,10 @@ public class SubPresenter implements ISubContract.Presenter {
     @Override
     public void dealEveryDay(String year, String month, String day) {
         view.showProgress();
-        modle.getEveryDay(year, month, day, new MCallBack() {
+        modle.getEveryDay(year, month, day, new ICallBack<ArrayList<GankBean>>() {
             @Override
-            public <T> void onSuccess(T result) {
-                view.onEveryDaySuccess((ArrayList<GankBean>)result);
+            public void onSusscess(ArrayList<GankBean> result) {
+                view.onEveryDaySuccess(result);
             }
 
             @Override

@@ -22,7 +22,12 @@ public enum NovateManager {
     NovateManager(){
     }
 
-    public Novate init(Context context,String baseUrl){
+    /**
+     * Application中初始化
+     * @param context
+     * @param baseUrl
+     */
+    public void init(Context context,String baseUrl){
         if(novate == null){
             novate = new Novate.Builder(context)
                     .baseUrl(baseUrl)
@@ -30,7 +35,6 @@ public enum NovateManager {
                     .build();
             this.context = context;
         }
-        return novate;
     }
 
     public void mGet(String url, TreeMap<String, Object> parameters, final ICallBack<ResponseBody> callBack){

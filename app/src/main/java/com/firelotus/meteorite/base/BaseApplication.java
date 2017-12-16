@@ -2,6 +2,7 @@ package com.firelotus.meteorite.base;
 
 import com.firelotus.meteorite.BuildConfig;
 import com.firelotus.meteoritelibrary.application.ErrorReportApplication;
+import com.firelotus.meteoritelibrary.tools.NovateManager;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -37,5 +38,8 @@ public class BaseApplication extends ErrorReportApplication {
             }
         });
         Logger.d("BaseApplication Start");
+
+        //初始化网络
+        NovateManager.INSTANCE.init(getApplicationContext(),BuildConfig.BASE_URL);
     }
 }

@@ -166,7 +166,7 @@ public class MvpView extends BaseFragment implements IMvpContract.View{
 
     @Override
     protected void initData() {
-        presenter = new MvpPresenter(getActivity(),this);
+        presenter = new MvpPresenter(this);
         switch (position){
             case 0:
                 presenter.getEveryDay("2017","10","20");

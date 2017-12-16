@@ -165,7 +165,7 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
 
     @Override
     protected void initData() {
-        presenter = new SubPresenter(getActivity(),this);
+        presenter = new SubPresenter(this);
         switch (position){
             case 0:
                 presenter.dealEveryDay("2017","10","20");

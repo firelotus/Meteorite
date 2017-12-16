@@ -1,7 +1,5 @@
 package com.firelotus.meteorite.ui.content;
 
-import android.content.Context;
-
 import com.firelotus.meteorite.ui.bean.GankBean;
 import com.firelotus.meteoritelibrary.base.IBaseModel;
 import com.firelotus.meteoritelibrary.base.IBasePresenter;
@@ -33,6 +31,7 @@ public interface IMvpContract {
      * 考虑放在一起或独立
      */
     interface Model extends IBaseModel {
-        void loadContent(Context context, String type, int pageIndex, int pageSize,/*Presenter.onContentListener onContentListener*//*Presenter.*/ICallBack<ArrayList<GankBean>> onContentListener);
+        void loadContent(String type, int pageIndex, int pageSize,/*Presenter.onContentListener onContentListener*//*Presenter.*/ICallBack<ArrayList<GankBean>> onContentListener);
+        void loadEveryDay(String year, String month, String day,ICallBack<ArrayList<GankBean>> onContentListener);
     }
 }
