@@ -146,4 +146,6 @@ dependencies {
     debugCompile "com.amitshekhar.android:debug-db:${versions.debugDb}",{
         exclude group: 'com.google.code.gson', module: 'gson'
     }
+
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:${versions.permissionsdispatcher}"
 }

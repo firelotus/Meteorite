@@ -27,5 +27,9 @@ ext.versions = [
         utilcode          : '1.9.10',
         glideTransformations : '2.0.1',
         agentweb          : '2.0.1',
-        gsonVersion       : '2.8.0'
+        gsonVersion       : '2.8.0',
+        permissionsdispatcher : '3.0.1',
+        reactivenetwork   : '0.12.2',
+        takephoto         : '4.0.3',
+        PhotoView         : '2.1.3'
 ]
