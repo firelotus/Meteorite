@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.firelotus.meteorite.BuildConfig;
 import com.firelotus.meteorite.ui.bean.GankBean;
-import com.firelotus.meteorite.ui.content.MvpContract;
+import com.firelotus.meteorite.ui.content.IMvpContract;
 import com.firelotus.meteoritelibrary.base.ICallBack;
 import com.firelotus.meteoritelibrary.tools.NetworkInterceptor;
 import com.google.gson.Gson;
@@ -26,14 +26,14 @@ import okhttp3.ResponseBody;
  * Created by firelotus on 2017/10/15.
  */
 
-public class MvpPresenter implements MvpContract.Presenter{
-    private MvpContract.View view;
-    private MvpContract.Model model;
+public class MvpPresenter implements IMvpContract.Presenter{
+    private IMvpContract.View view;
+    private IMvpContract.Model model;
     private Context context;
     private Novate novate;
 
 
-    public MvpPresenter(Context context, MvpContract.View view) {
+    public MvpPresenter(Context context, IMvpContract.View view) {
         this.view = view;
         model = new MvpModel(context);
         this.context = context;

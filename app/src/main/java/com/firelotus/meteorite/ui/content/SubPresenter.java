@@ -26,12 +26,12 @@ import okhttp3.ResponseBody;
  * Created by firelotus on 2017/10/15.
  */
 
-public class SubPresenter implements SubContract.Presenter {
-    private SubContract.View view;
+public class SubPresenter implements ISubContract.Presenter {
+    private ISubContract.View view;
     private Context context;
     private Novate novate;
 
-    public SubPresenter(Context context, SubContract.View view) {
+    public SubPresenter(Context context, ISubContract.View view) {
         this.view = view;
         this.context = context;
         novate = new Novate.Builder(context)

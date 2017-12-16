@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.firelotus.meteorite.BuildConfig;
 import com.firelotus.meteorite.ui.bean.GankBean;
-import com.firelotus.meteorite.ui.content.MvpContract;
+import com.firelotus.meteorite.ui.content.IMvpContract;
 import com.firelotus.meteoritelibrary.base.ICallBack;
 import com.firelotus.meteoritelibrary.tools.MNovateResponse;
 import com.firelotus.meteoritelibrary.tools.NovateManager;
@@ -24,7 +24,7 @@ import okhttp3.ResponseBody;
  * Created by firelotus on 2017/12/10.
  */
 
-public class MvpModel implements MvpContract.Model {
+public class MvpModel implements IMvpContract.Model {
 
     private Novate novate;
 
@@ -39,7 +39,7 @@ public class MvpModel implements MvpContract.Model {
     }
 
     @Override
-    public void loadContent(Context context, String type, int pageIndex, int pageSize, final /*MvpContract.Presenter.onContentListener*//*MvpContract.Presenter.*/ICallBack<ArrayList<GankBean>> onContentListener) {
+    public void loadContent(Context context, String type, int pageIndex, int pageSize, final /*IMvpContract.Presenter.onContentListener*//*IMvpContract.Presenter.*/ICallBack<ArrayList<GankBean>> onContentListener) {
         /*TreeMap<String, Object> parameters = new TreeMap<>();
         //福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
         novate.get("data/"+type+"/"+pageSize+"/"+pageIndex,parameters,new BaseSubscriber<ResponseBody>(context){

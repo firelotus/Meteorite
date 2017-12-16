@@ -28,7 +28,7 @@ import butterknife.BindView;
  * Created by firelotus on 2017/10/15.
  */
 
-public class SubFragment extends BaseFragment implements SubContract.View{
+public class SubFragment extends BaseFragment implements ISubContract.View{
     public static final String INTENT_STRING_TABNAME = "intent_String_tabName";
     public static final String INTENT_INT_POSITION = "intent_int_position";
     public static String INDEX = "position";
@@ -38,7 +38,7 @@ public class SubFragment extends BaseFragment implements SubContract.View{
     private CommonAdapter<GankBean> adapter;
     private List<GankBean> gankBeans = new ArrayList<>();
 
-    private SubContract.Presenter presenter;
+    private ISubContract.Presenter presenter;
     private int pos = 0;
     private int pageIndex = 1;
     private int pageSize = 10;

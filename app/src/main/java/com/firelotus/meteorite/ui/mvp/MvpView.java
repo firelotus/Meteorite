@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.firelotus.meteorite.R;
 import com.firelotus.meteorite.ui.bean.GankBean;
-import com.firelotus.meteorite.ui.content.MvpContract;
+import com.firelotus.meteorite.ui.content.IMvpContract;
 import com.firelotus.meteoritelibrary.base.BaseFragment;
 import com.firelotus.meteoritelibrary.tools.GlideImageLoader;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -29,7 +29,7 @@ import butterknife.BindView;
  * Created by firelotus on 2017/10/15.
  */
 
-public class MvpView extends BaseFragment implements MvpContract.View{
+public class MvpView extends BaseFragment implements IMvpContract.View{
     public static final String INTENT_STRING_TABNAME = "intent_String_tabName";
     public static final String INTENT_INT_POSITION = "intent_int_position";
     public static String INDEX = "position";
@@ -39,7 +39,7 @@ public class MvpView extends BaseFragment implements MvpContract.View{
     private CommonAdapter<GankBean> adapter;
     private List<GankBean> gankBeans = new ArrayList<>();
 
-    private MvpContract.Presenter presenter;
+    private IMvpContract.Presenter presenter;
     private int pos = 0;
     private int pageIndex = 1;
     private int pageSize = 10;
