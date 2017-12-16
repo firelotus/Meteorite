@@ -49,11 +49,6 @@ public class SubFragment extends BaseFragment implements SubContract.View{
     private String[] images;
 
     @Override
-    public void setPresenter(SubContract.Presenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
     protected void initView() {
         showLoading();
         //xRecyclerView = findViewById(R.id.xRecyclerView);

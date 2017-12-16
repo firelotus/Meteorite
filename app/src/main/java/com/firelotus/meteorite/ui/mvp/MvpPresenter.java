@@ -35,7 +35,6 @@ public class MvpPresenter implements MvpContract.Presenter{
 
     public MvpPresenter(Context context, MvpContract.View view) {
         this.view = view;
-        this.view.setPresenter(this);
         model = new MvpModel(context);
         this.context = context;
         novate = new Novate.Builder(context)

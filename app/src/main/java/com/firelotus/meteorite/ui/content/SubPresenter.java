@@ -33,7 +33,6 @@ public class SubPresenter implements SubContract.Presenter {
 
     public SubPresenter(Context context, SubContract.View view) {
         this.view = view;
-        this.view.setPresenter(this);
         this.context = context;
         novate = new Novate.Builder(context)
                 .baseUrl(BuildConfig.BASE_URL)

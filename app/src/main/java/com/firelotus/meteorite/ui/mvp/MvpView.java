@@ -50,11 +50,6 @@ public class MvpView extends BaseFragment implements MvpContract.View{
     private String[] images;
 
     @Override
-    public void setPresenter(MvpContract.Presenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
     protected void initView() {
         showLoading();
         //xRecyclerView = findViewById(R.id.xRecyclerView);

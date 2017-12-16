@@ -5,7 +5,7 @@ import android.content.Context;
 import com.firelotus.meteorite.ui.bean.GankBean;
 import com.firelotus.meteoritelibrary.base.BaseModel;
 import com.firelotus.meteoritelibrary.base.BasePresenter;
-import com.firelotus.meteoritelibrary.base.BaseView;
+import com.firelotus.meteoritelibrary.base.IBaseView;
 import com.firelotus.meteoritelibrary.base.ICallBack;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 
 public interface MvpContract {
-    interface View extends BaseView<Presenter> {
+    interface View extends IBaseView {
         void onContentSuccess(ArrayList<GankBean> list);
         void onEveryDaySuccess(ArrayList<GankBean> list);
     }
