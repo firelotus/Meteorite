@@ -1,8 +1,10 @@
 package com.firelotus.meteorite.ui.content;
 
 import com.firelotus.meteorite.ui.bean.GankBean;
+import com.firelotus.meteoritelibrary.base.IBaseModel;
 import com.firelotus.meteoritelibrary.base.IBasePresenter;
 import com.firelotus.meteoritelibrary.base.IBaseView;
+import com.firelotus.meteoritelibrary.base.MCallBack;
 
 import java.util.ArrayList;
 
@@ -15,8 +17,14 @@ public interface ISubContract {
         void onContentSuccess(ArrayList<GankBean> list);
         void onEveryDaySuccess(ArrayList<GankBean> list);
     }
+
     interface Presenter extends IBasePresenter {
-        void getContent(String type,int pageIndex, int pageSize);
-        void getEveryDay(String year, String month, String day);
+        void dealContent(String type, int pageIndex, int pageSize);
+        void dealEveryDay(String year, String month, String day);
+    }
+
+    interface Modle extends IBaseModel {
+        void getContent(String type, int pageIndex, int pageSize, MCallBack callBack);
+        void getEveryDay(String year, String month, String day, MCallBack callBack);
     }
 }

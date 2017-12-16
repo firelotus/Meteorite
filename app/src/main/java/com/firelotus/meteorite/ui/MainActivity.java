@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.firelotus.meteorite.R;
 import com.firelotus.meteorite.ui.content.SubFragment;
-import com.firelotus.meteorite.ui.mvp.MvpView;
 import com.firelotus.meteoritelibrary.base.BaseActivity;
 import com.orhanobut.logger.Logger;
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -175,13 +174,8 @@ public class MainActivity extends BaseActivity
 
         @Override
         public Fragment getFragmentForPage(int position) {
-            /*SubFragment subFragment = new SubFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString(SubFragment.INTENT_STRING_TABNAME, tabNames[position]);
-            bundle.putInt(SubFragment.INTENT_INT_POSITION, position);
-            subFragment.setArguments(bundle);
-            return subFragment;*/
-            MvpView subFragment = new MvpView();
+            SubFragment subFragment = new SubFragment();
+            //MvpView subFragment = new MvpView();
             Bundle bundle = new Bundle();
             bundle.putString(SubFragment.INTENT_STRING_TABNAME, tabNames[position]);
             bundle.putInt(SubFragment.INTENT_INT_POSITION, position);

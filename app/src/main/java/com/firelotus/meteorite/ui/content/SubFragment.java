@@ -168,20 +168,20 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
         presenter = new SubPresenter(getActivity(),this);
         switch (position){
             case 0:
-                presenter.getEveryDay("2017","10","20");
+                presenter.dealEveryDay("2017","10","20");
                 banner.setVisibility(View.VISIBLE);
                 break;
             case 1:
                 type = "福利";
-                presenter.getContent(type,pageIndex,pageSize);
+                presenter.dealContent(type,pageIndex,pageSize);
                 break;
             case 2:
                 type = "Android";
-                presenter.getContent(type,pageIndex,pageSize);
+                presenter.dealContent(type,pageIndex,pageSize);
                 break;
             case 3:
                 type = "iOS";
-                presenter.getContent(type,pageIndex,pageSize);
+                presenter.dealContent(type,pageIndex,pageSize);
                 break;
         }
         hideLoading();
