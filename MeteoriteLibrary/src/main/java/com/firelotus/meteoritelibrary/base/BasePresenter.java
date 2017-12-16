@@ -5,10 +5,16 @@ package com.firelotus.meteoritelibrary.base;
  */
 
 public interface BasePresenter {
-    /*interface CallBack<T>{//考虑单独一个接口.调用方便
-        void onSusscess(T result);
-        void onError();
-    }*/
-
     void detach();
+
+    /**
+     * presenter和对应的view绑定
+     * @param mvpView  目标view
+     */
+    //void attachView(V mvpView);
+
+    /**
+     * presenter与view解绑
+     */
+    //void detachView();
 }

@@ -17,6 +17,12 @@ public interface IBaseView {
 
     void showError();
 
+    /**
+     * 主要用于网络请求回调时的判断,activity和fragment是否可见.
+     * @return
+     */
+    boolean isActive();
+
     //void showEmpty();//获取数据为空时
 
 

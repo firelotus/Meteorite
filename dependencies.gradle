@@ -24,5 +24,8 @@ ext.versions = [
         materialDialogs   : '0.9.6.0',
         debugDb           : '1.0.1',
         circleimageview   : '2.2.0',
-        utilcode          : '1.9.10'
+        utilcode          : '1.9.10',
+        glideTransformations : '2.0.1',
+        agentweb          : '2.0.1',
+        gsonVersion       : '2.8.0'
 ]

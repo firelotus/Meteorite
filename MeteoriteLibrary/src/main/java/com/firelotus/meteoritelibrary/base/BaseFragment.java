@@ -278,6 +278,11 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
         onError();
     }
 
+    @Override
+    public boolean isActive() {
+        return isAdded();
+    }
+
     /**
      * 出错回调处理
      */

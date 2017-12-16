@@ -44,7 +44,10 @@ dependencies {
 
     compile "com.shizhefei:ViewPagerIndicator:${versions.viewPagerIndicator}"
 
-    compile "com.jakewharton:butterknife:${versions.butterKnife}" //放lib中方便base类调用。另一部分butterknife-compiler必须放app中，否则控件报空指针
+    ////放lib中方便base类调用。另一部分butterknife-compiler必须放app中，否则控件报空指针
+    compile ("com.jakewharton:butterknife:${versions.butterKnife}"){
+        exclude group: 'com.android.support'
+    }
 
     //Android图片轮播控件  https://github.com/youth5201314/banner
     compile "com.youth.banner:banner:${versions.banner}"  //最新版本
@@ -72,5 +75,11 @@ dependencies {
 
     //https://github.com/Blankj/AndroidUtilCode
     compile "com.blankj:utilcode:${versions.utilcode}"
+
+    //https://github.com/Justson/AgentWeb
+    compile "com.just.agentweb:agentweb:2.0.1"
+
+    provided 'javax.annotation:jsr250-api:1.0'
+    compile 'javax.inject:javax.inject:1'
 
 }

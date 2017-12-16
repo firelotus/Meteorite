@@ -48,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     private AnimationDrawable mAnimationDrawable;
     private Toolbar toolBar;
     private boolean mIsSupportToolBar = true;
+    private boolean isActive;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,6 +107,12 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
                 onRefresh();
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActive = false;
     }
 
     @Override
@@ -248,5 +255,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      */
     protected void onError(){
 
+    }
+
+    @Override
+    public boolean isActive() {
+        return isActive;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActive = true;
     }
 }
