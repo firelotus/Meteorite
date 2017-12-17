@@ -1,7 +1,5 @@
 package com.firelotus.meteorite.ui.content;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -135,11 +133,7 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
                 holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, WebActivity.class);
-                        intent.putExtra(WebActivity.EXTRA_NAME, gankBean.getDesc());
-                        intent.putExtra(WebActivity.EXTRA_URL, gankBean.getUrl());
-                        context.startActivity(intent);
+                        WebActivity.loadUrl(activity.getApplicationContext(), gankBean.getUrl(),gankBean.getDesc());
                     }
                 });
             }
@@ -169,7 +163,9 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        presenter.detach();
+        if(presenter != null){
+            presenter.detach();
+        }
     }
     
     @Override

@@ -1,13 +1,12 @@
 package com.firelotus.meteorite.ui;
 
+import android.content.Context;
 import android.content.Intent;
-import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.firelotus.meteorite.R;
 import com.firelotus.meteoritelibrary.base.BaseActivity;
 import com.just.library.AgentWeb;
-import com.just.library.ChromeClientCallbackManager;
 
 import butterknife.BindView;
 
@@ -20,6 +19,19 @@ public class WebActivity extends BaseActivity {
     public static final String EXTRA_URL = "url";
     @BindView(R.id.ll_webview)
     LinearLayout llWebview;
+
+    /**
+     * 打开网页
+     * @param context
+     * @param url
+     * @param name
+     */
+    public static void loadUrl(Context context, String url, String name) {
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra(EXTRA_NAME, name);
+        intent.putExtra(EXTRA_URL, url);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -41,15 +53,14 @@ public class WebActivity extends BaseActivity {
                 .setAgentWebParent(llWebview, new LinearLayout.LayoutParams(-1, -1))//传入AgentWeb 的父控件 ，如果父控件为 RelativeLayout ， 那么第二参数需要传入 RelativeLayout.LayoutParams ,第一个参数和第二个参数应该对应。
                 .useDefaultIndicator()// 使用默认进度条
                 .defaultProgressBarColor() // 使用默认进度条颜色
-                .setReceivedTitleCallback(new ChromeClientCallbackManager.ReceivedTitleCallback() {
+               /* .setReceivedTitleCallback(new ChromeClientCallbackManager.ReceivedTitleCallback() {
                     @Override
                     public void onReceivedTitle(WebView view, String title) {
 
                     }
-                }) //设置 Web 页面的 title 回调
+                }) //设置 Web 页面的 title 回调*/
                 .createAgentWeb()//
                 .ready()
                 .go(url);
-
     }
 }

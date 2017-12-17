@@ -29,9 +29,10 @@ import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.fab) FloatingActionButton fab;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity
 
     private IndicatorViewPager indicatorViewPager;
     private LayoutInflater inflate;
+    private CircleImageView profile_image;
 
     @Override
     protected int getLayoutId() {
@@ -70,6 +72,9 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        profile_image = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.profile_image);
+        profile_image.setOnClickListener(this);
 
         float unSelectSize = 16;
         float selectSize = unSelectSize * 1.2f;
@@ -130,20 +135,19 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_home) {
-            tv_content.setText("camera");
+            tv_content.setText("home");
         } else if (id == R.id.nav_about) {
-            tv_content.setText("gallery");
+            tv_content.setText("about");
             AboutActivity.start(getApplicationContext());
         } else if (id == R.id.nav_login) {
-            tv_content.setText("slideshow");
+            WebActivity.loadUrl(getApplicationContext(), "https://github.com/login", "登录GitHub");
         } else if (id == R.id.nav_set) {
-            tv_content.setText("manage");
+            tv_content.setText("set");
         } else if (id == R.id.nav_comments) {
-            tv_content.setText("share");
+            tv_content.setText("comments");
         } else if (id == R.id.nav_logout) {
-            tv_content.setText("send");
+            finish();
         }
         Logger.d(tv_content.getText().toString());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -182,6 +186,15 @@ public class MainActivity extends BaseActivity
             subFragment.setArguments(bundle);
             return subFragment;
         }
+    }    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.profile_image:
+                WebActivity.loadUrl(this,"https://github.com/firelotus/Meteorite","Meteorite");
+                break;
+        }
     }
+
+
 
 }
