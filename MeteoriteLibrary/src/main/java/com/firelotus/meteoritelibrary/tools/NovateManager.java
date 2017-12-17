@@ -37,8 +37,7 @@ public enum NovateManager {
         }
     }
 
-    public void mGet(String url, TreeMap<String, Object> parameters, final ICallBack<ResponseBody> callBack){
-        //福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
+    public void get(String url, TreeMap<String, Object> parameters, final ICallBack<ResponseBody> callBack){
         novate.get(url,parameters,new BaseSubscriber<ResponseBody>(context){
             @Override
             public void onNext(ResponseBody responseBody) {

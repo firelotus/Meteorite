@@ -29,7 +29,7 @@ public class SubModel implements ISubContract.Modle {
     public void getContent(String type, int pageIndex, int pageSize, final ICallBack<ArrayList<GankBean>> callBack) {
         TreeMap<String, Object> parameters = new TreeMap<>();
         //福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
-        NovateManager.INSTANCE.mGet("data/" + type + "/" + pageSize + "/" + pageIndex, parameters, new ICallBack<ResponseBody>() {
+        NovateManager.INSTANCE.get("data/" + type + "/" + pageSize + "/" + pageIndex, parameters, new ICallBack<ResponseBody>() {
             @Override
             public void onSusscess(ResponseBody result) {
                 try {
@@ -56,7 +56,7 @@ public class SubModel implements ISubContract.Modle {
     @Override
     public void getEveryDay(String year, String month, String day, final ICallBack<ArrayList<GankBean>> callBack) {
         TreeMap<String, Object> parameters = new TreeMap<>();
-        NovateManager.INSTANCE.mGet("day/"+year+"/"+month+"/"+day, parameters, new ICallBack<ResponseBody>() {
+        NovateManager.INSTANCE.get("day/"+year+"/"+month+"/"+day, parameters, new ICallBack<ResponseBody>() {
             @Override
             public void onSusscess(ResponseBody result) {
                 try {

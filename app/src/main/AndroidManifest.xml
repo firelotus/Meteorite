@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.AboutActivity" />
+        <activity android:name=".ui.WebActivity" />
     </application>
 
 </manifest>

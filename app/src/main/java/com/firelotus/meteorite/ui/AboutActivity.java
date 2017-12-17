@@ -24,7 +24,6 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        showLoading();
         setToolBarTitle("关于");
     }
 

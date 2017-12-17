@@ -1,5 +1,7 @@
 package com.firelotus.meteorite.ui.content;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firelotus.meteorite.R;
+import com.firelotus.meteorite.ui.WebActivity;
 import com.firelotus.meteorite.ui.bean.GankBean;
 import com.firelotus.meteoritelibrary.base.BaseFragment;
 import com.firelotus.meteoritelibrary.tools.GlideImageLoader;
@@ -114,7 +117,7 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
 
         adapter = new CommonAdapter<GankBean>(activity,R.layout.item_sub,gankBeans) {
             @Override
-            protected void convert(ViewHolder holder, GankBean gankBean, int position) {
+            protected void convert(ViewHolder holder, final GankBean gankBean, int position) {
                 if(type.equals("福利")){
                     holder.getView(R.id.iv_all_welfare).setVisibility(View.VISIBLE);
                     holder.getView(R.id.ll_welfare_other).setVisibility(View.GONE);
@@ -128,6 +131,17 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
                 holder.setText(R.id.tv_des,gankBean.getDesc());
                 holder.setText(R.id.tv_who,gankBean.getWho());
                 holder.setText(R.id.tv_time,gankBean.getCreatedAt());
+
+                holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, WebActivity.class);
+                        intent.putExtra(WebActivity.EXTRA_NAME, gankBean.getDesc());
+                        intent.putExtra(WebActivity.EXTRA_URL, gankBean.getUrl());
+                        context.startActivity(intent);
+                    }
+                });
             }
         };
         xRecyclerView.setAdapter(adapter);
