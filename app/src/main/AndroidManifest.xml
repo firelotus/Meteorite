@@ -30,6 +30,7 @@
         <activity android:name=".ui.AboutActivity" />
         <activity android:name=".ui.WebActivity"
             android:launchMode="singleTop"/>
+        <activity android:name=".ui.ImageViewerActivity" android:launchMode="singleTop"/>
     </application>
 
 </manifest>

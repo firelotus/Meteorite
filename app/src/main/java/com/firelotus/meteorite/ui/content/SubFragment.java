@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firelotus.meteorite.R;
+import com.firelotus.meteorite.ui.ImageViewerActivity;
 import com.firelotus.meteorite.ui.WebActivity;
 import com.firelotus.meteorite.ui.bean.GankBean;
 import com.firelotus.meteoritelibrary.base.BaseFragment;
@@ -121,8 +122,20 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
                     holder.getView(R.id.ll_welfare_other).setVisibility(View.GONE);
                     holder.getView(R.id.rl_welfare_other).setVisibility(View.GONE);
                     Glide.with(activity).load(gankBean.getUrl()).into((ImageView)holder.getView(R.id.iv_all_welfare));
+                    holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ImageViewerActivity.start(activity.getApplicationContext(),gankBean.getUrl());
+                        }
+                    });
                 } else {
                     holder.getView(R.id.iv_all_welfare).setVisibility(View.GONE);
+                    holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            WebActivity.loadUrl(activity.getApplicationContext(), gankBean.getUrl(),gankBean.getDesc());
+                        }
+                    });
                 }
 
                 holder.setText(R.id.tv_content_type,gankBean.getType());
@@ -131,13 +144,6 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
                 if(gankBean.getPublishedAt() != null){
                     holder.setText(R.id.tv_time,gankBean.getPublishedAt().substring(0,gankBean.getPublishedAt().indexOf("T")));
                 }
-
-                holder.getConvertView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        WebActivity.loadUrl(activity.getApplicationContext(), gankBean.getUrl(),gankBean.getDesc());
-                    }
-                });
             }
         };
         xRecyclerView.setAdapter(adapter);
