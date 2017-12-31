@@ -6,6 +6,8 @@ import com.firelotus.meteoritelibrary.tools.MNovateResponse;
 import com.firelotus.meteoritelibrary.tools.NovateManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tamic.novate.BaseSubscriber;
+import com.tamic.novate.Throwable;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,11 +31,11 @@ public class SubModel implements ISubContract.Modle {
     public void getContent(String type, int pageIndex, int pageSize, final ICallBack<ArrayList<GankBean>> callBack) {
         TreeMap<String, Object> parameters = new TreeMap<>();
         //福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
-        NovateManager.INSTANCE.get("data/" + type + "/" + pageSize + "/" + pageIndex, parameters, new ICallBack<ResponseBody>() {
+        NovateManager.INSTANCE.novate.get("data/" + type + "/" + pageSize + "/" + pageIndex, parameters, new BaseSubscriber<ResponseBody>() {
             @Override
-            public void onSusscess(ResponseBody result) {
+            public void onNext(ResponseBody responseBody) {
                 try {
-                    String jstr = new String(result.bytes());
+                    String jstr = new String(responseBody.bytes());
                     //MLog.d(jstr);
                     Type type = new TypeToken<MNovateResponse<ArrayList<GankBean>>>() {
                     }.getType();
@@ -46,21 +48,25 @@ public class SubModel implements ISubContract.Modle {
             }
 
             @Override
-            public void onError() {
+            public void onError(Throwable e) {
                 callBack.onError();
             }
         });
-
     }
 
     @Override
     public void getEveryDay(String year, String month, String day, final ICallBack<ArrayList<GankBean>> callBack) {
         TreeMap<String, Object> parameters = new TreeMap<>();
-        NovateManager.INSTANCE.get("day/"+year+"/"+month+"/"+day, parameters, new ICallBack<ResponseBody>() {
+        NovateManager.INSTANCE.novate.get("day/" + year + "/" + month + "/" + day, parameters, new BaseSubscriber<ResponseBody>() {
             @Override
-            public void onSusscess(ResponseBody result) {
+            public void onError(Throwable e) {
+                callBack.onError();
+            }
+
+            @Override
+            public void onNext(ResponseBody responseBody) {
                 try {
-                    String jstr = new String(result.bytes());
+                    String jstr = new String(responseBody.bytes());
                     //MLog.d(jstr);
                     JSONObject jsonObject = new JSONObject(jstr);
                     JSONArray category = jsonObject.getJSONArray("category");
@@ -92,11 +98,6 @@ public class SubModel implements ISubContract.Modle {
                     e.printStackTrace();
                     callBack.onError();
                 }
-            }
-
-            @Override
-            public void onError() {
-                callBack.onError();
             }
         });
 

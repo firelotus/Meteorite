@@ -2,14 +2,7 @@ package com.firelotus.meteoritelibrary.tools;
 
 import android.content.Context;
 
-import com.firelotus.meteoritelibrary.base.ICallBack;
-import com.tamic.novate.BaseSubscriber;
 import com.tamic.novate.Novate;
-import com.tamic.novate.Throwable;
-
-import java.util.TreeMap;
-
-import okhttp3.ResponseBody;
 
 /**
  * Created by firelotus on 2017/12/13.
@@ -17,7 +10,7 @@ import okhttp3.ResponseBody;
 
 public enum NovateManager {
     INSTANCE;
-    private Novate novate;
+    public Novate novate;
     private Context context;
     NovateManager(){
     }
@@ -37,17 +30,4 @@ public enum NovateManager {
         }
     }
 
-    public void get(String url, TreeMap<String, Object> parameters, final ICallBack<ResponseBody> callBack){
-        novate.get(url,parameters,new BaseSubscriber<ResponseBody>(context){
-            @Override
-            public void onNext(ResponseBody responseBody) {
-                callBack.onSusscess(responseBody);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                callBack.onError();
-            }
-        });
-    }
 }

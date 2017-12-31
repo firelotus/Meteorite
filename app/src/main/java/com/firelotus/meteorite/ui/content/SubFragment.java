@@ -128,7 +128,7 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
                 holder.setText(R.id.tv_content_type,gankBean.getType());
                 holder.setText(R.id.tv_des,gankBean.getDesc());
                 holder.setText(R.id.tv_who,gankBean.getWho());
-                holder.setText(R.id.tv_time,gankBean.getCreatedAt());
+                holder.setText(R.id.tv_time,gankBean.getPublishedAt().substring(0,gankBean.getPublishedAt().indexOf("T")));
 
                 holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
