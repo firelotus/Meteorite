@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.blankj.utilcode.util.Utils;
-import com.firelotus.meteoritelibrary.tools.AppStatusTracker;
 import com.firelotus.meteoritelibrary.utils.ExceptionWriter;
 
 /**
@@ -34,7 +33,7 @@ public class ErrorReportApplication extends Application{
         super.onCreate();
         mContext = this;
         mHandler = new Handler();
-        AppStatusTracker.init(this);
+        //AppStatusTracker.init(this);
         Utils.init(this);
         exceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(handler);

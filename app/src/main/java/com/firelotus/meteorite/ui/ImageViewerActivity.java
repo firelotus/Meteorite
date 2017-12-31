@@ -2,8 +2,6 @@ package com.firelotus.meteorite.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.firelotus.meteorite.R;
@@ -25,11 +23,6 @@ public class ImageViewerActivity extends BaseActivity {
         Intent intent = new Intent(context,ImageViewerActivity.class);
         intent.putExtra(URL,url);
         context.startActivity(intent);
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override

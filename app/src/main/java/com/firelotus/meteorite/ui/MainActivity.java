@@ -135,7 +135,6 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-            tv_content.setText("home");
         } else if (id == R.id.nav_about) {
             tv_content.setText("about");
             AboutActivity.start(getApplicationContext());
@@ -144,7 +143,7 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_set) {
             tv_content.setText("set");
         } else if (id == R.id.nav_comments) {
-            tv_content.setText("comments");
+            FeedBackActivity.start(getApplicationContext());
         } else if (id == R.id.nav_logout) {
             finish();
         }

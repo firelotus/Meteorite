@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/ll_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="230px"
+            android:layout_height="230px"
+            android:layout_gravity="center"
+            android:src="@drawable/head"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前版本V1.0"/>
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="about"/>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_version"
+        android:layout_marginTop="60px"
+        android:gravity="center"
+        android:text="O(∩_∩)O图标还不能自给自足,见谅!很高兴您能关注,如果感到满意就Star一下吧,由于时间有限,部分功能还在完善中..."/>
+
+</RelativeLayout>
