@@ -1,11 +1,13 @@
 package com.firelotus.meteoritelibrary.tools;
 
+import android.support.annotation.Keep;
+
 import java.util.List;
 
 /**
  * Created by firelotus on 2017/10/15.
  */
-
+@Keep
 public class MNovateResponse<T> {
     private String error;
 

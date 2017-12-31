@@ -1,11 +1,13 @@
 package com.firelotus.meteorite.ui.bean;
 
+import android.support.annotation.Keep;
+
 import java.util.List;
 
 /**
  * Created by firelotus on 2017/10/15.
  */
-
+@Keep
 public class GankBean {
 
     /**
