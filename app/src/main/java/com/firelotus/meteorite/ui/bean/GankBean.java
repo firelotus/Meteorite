@@ -2,13 +2,14 @@ package com.firelotus.meteorite.ui.bean;
 
 import android.support.annotation.Keep;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by firelotus on 2017/10/15.
  */
 @Keep
-public class GankBean {
+public class GankBean implements Serializable{
 
     /**
      * _id : 59e46c6a421aa90fe50c0174

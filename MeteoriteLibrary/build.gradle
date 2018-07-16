@@ -91,11 +91,8 @@ dependencies {
     //https://github.com/pwittchen/ReactiveNetwork
     compile "com.github.pwittchen:reactivenetwork-rx2:${versions.reactivenetwork}"
 
-    //https://github.com/permissions-dispatcher/PermissionsDispatcher
-    compile("com.github.hotchemi:permissionsdispatcher:${versions.permissionsdispatcher}") {
-        // if you don't use android.app.Fragment you can exclude support for them
-        exclude module: "support-v13"
-    }
+    //https://github.com/tbruyelle/RxPermissions
+    compile "com.github.tbruyelle:rxpermissions:${versions.rxpermissions}"
 
     //https://github.com/crazycodeboy/TakePhoto
     compile "com.jph.takephoto:takephoto_library:${versions.takephoto}"
