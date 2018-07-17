@@ -5,7 +5,7 @@
  - 1、MVP 
  - 2、网络请求（Novate基于rxjava,okhttp,retrofit封装架构）
  - 3、DbFlow(可保存文件入SD卡) 
- - 4、6.0权限申请 
+ - 4、6.0权限申请(rxpermissions) 
  - 5、XRecyclerView 
  - 6、万能Adapter
  - 7、异常处理 
@@ -19,10 +19,15 @@
  - 15、升级更新 
  - 16、极光推送
  - 17、butterknife
+ - 18、APP启动图标多环境区分(easylauncher)
+ - 19、函数输入参数打印(Hugo)
  
  <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/app.gif"></img>
  <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/log.gif"></img>
  <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/signedApk.gif"></img>
+<img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/permission.gif"></img>
+<img width="1329" height=“365” src="https://github.com/firelotus/Meteorite/blob/develop/image/hugo.png"></img>
+<img width="144" height=“144” src="https://github.com/firelotus/Meteorite/blob/develop/image/easylauncher.png"></img>
  
  
  License
