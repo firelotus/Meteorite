@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.akaita.android.easylauncher'
+apply plugin: 'com.jakewharton.hugo'
 apply from: '../dependencies.gradle'
 def PRODUCT_NAME = "陨石"
 
@@ -77,17 +79,6 @@ android {
                 def versionName = defaultConfig.versionName
                 // 开发环境
                 buildConfigField "String", "APP_ENV", "\"${flavorName}\""
-                // 修改打包环境的url
-                def base_url = ''
-                if(flavorName.equals("rls")){//生产环境
-                    base_url = 'http://gank.io/api/'
-                }else if(flavorName.equals("dev")){//开发环境(模拟)
-                    base_url = 'http://dev.gank.io/api/'
-                }else if(flavorName.equals("sit")){//测试环境(模拟)
-                    base_url = 'http://sit.gank.io/api/'
-                }
-                buildConfigField "String", "BASE_URL", "\"${base_url}\""
-
                 // yourapkname_release_myapk_ver1.0.0_build20130312.apk 输出格式
                 def fileName = "${PRODUCT_NAME}_V${versionName}_${buildTypeName}_${flavorName}_${BUILD_TIME_FORMAT}.apk"
 
@@ -98,11 +89,17 @@ android {
 
     productFlavors {
         //生产环境
-        rls {}
+        rls {
+            buildConfigField "String", "BASE_URL", "\"http://gank.io/api/\""
+        }
         //开发环境
-        dev {}
+        dev {
+            buildConfigField "String", "BASE_URL", "\"http://dev.gank.io/api/\""
+        }
         //测试环境
-        sit {}
+        sit {
+            buildConfigField "String", "BASE_URL", "\"http://sit.gank.io/api/\""
+        }
     }
 
     lintOptions {
@@ -133,5 +130,19 @@ dependencies {
         exclude group: 'com.google.code.gson', module: 'gson'
     }
 
-    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:${versions.permissionsdispatcher}"
+}
+
+//更改程序图标
+easylauncher {
+    defaultFlavorNaming = true // Use flavor name for default ribbon, instead of the type name
+    variants {
+        devRelease {
+            filters = customColorRibbonFilter("dev", "#6600CC")
+            enable true
+        }
+        sitRelease {
+            filters = customColorRibbonFilter("sit", "#6600CC")
+            enable true
+        }
+    }
 }

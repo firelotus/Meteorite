@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firelotus.meteorite.R;
-import com.firelotus.meteorite.ui.ImageViewerActivity;
+import com.firelotus.meteorite.ui.ViewPagerActivity;
 import com.firelotus.meteorite.ui.WebActivity;
 import com.firelotus.meteorite.ui.bean.GankBean;
 import com.firelotus.meteoritelibrary.base.BaseFragment;
@@ -22,7 +22,8 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 
@@ -38,7 +39,7 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
     @BindView(R.id.banner) Banner banner;
     @BindView(R.id.fragment_mainTab_item_textView) TextView textView;
     private CommonAdapter<GankBean> adapter;
-    private List<GankBean> gankBeans = new ArrayList<>();
+    private ArrayList<GankBean> gankBeans = new ArrayList<>();
 
     private ISubContract.Presenter presenter;
     private int pos = 0;
@@ -49,6 +50,9 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
     private int position;
     //private TextView textView;
     private String[] images;
+
+    //当前日期
+    private Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void initView() {
@@ -116,7 +120,7 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
 
         adapter = new CommonAdapter<GankBean>(activity,R.layout.item_sub,gankBeans) {
             @Override
-            protected void convert(ViewHolder holder, final GankBean gankBean, int position) {
+            protected void convert(ViewHolder holder, final GankBean gankBean, final int position) {
                 if(type.equals("福利")){
                     holder.getView(R.id.iv_all_welfare).setVisibility(View.VISIBLE);
                     holder.getView(R.id.ll_welfare_other).setVisibility(View.GONE);
@@ -125,7 +129,8 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
                     holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ImageViewerActivity.start(activity.getApplicationContext(),gankBean.getUrl());
+                            //ImageViewerActivity.start(activity.getApplicationContext(),gankBean.getUrl());
+                            ViewPagerActivity.start(activity,position-1,gankBeans);
                         }
                     });
                 } else {
@@ -133,7 +138,7 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
                     holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            WebActivity.loadUrl(activity.getApplicationContext(), gankBean.getUrl(),gankBean.getDesc());
+                            WebActivity.loadUrl(activity, gankBean.getUrl(),gankBean.getDesc());
                         }
                     });
                 }
@@ -183,10 +188,11 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
 
     @Override
     protected void initData() {
+        calendar.setTime(new Date());
         presenter = new SubPresenter(this);
         switch (position){
             case 0:
-                presenter.dealEveryDay("2017","10","20");
+                presenter.dealEveryDay(String.valueOf(calendar.get(Calendar.YEAR)),String.valueOf(calendar.get(Calendar.MONTH)+1),String.valueOf(calendar.get(Calendar.DATE)));
                 banner.setVisibility(View.VISIBLE);
                 break;
             case 1:
@@ -251,5 +257,11 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
         this.gankBeans.addAll(list);
         adapter.notifyDataSetChanged();
         xRecyclerView.setNoMore(true);
+        xRecyclerView.setPullRefreshEnabled(false);
+        //优化逻辑:因为此类数据不是每天都有,所以以当前时间为起始点,进行请求,直到获取到数据为止.
+        if(list.size() == 0){
+            calendar.set(Calendar.DAY_OF_MONTH,calendar.get(Calendar.DAY_OF_MONTH)-1);
+            presenter.dealEveryDay(String.valueOf(calendar.get(Calendar.YEAR)),String.valueOf(calendar.get(Calendar.MONTH)+1),String.valueOf(calendar.get(Calendar.DATE)));
+        }
     }
 }

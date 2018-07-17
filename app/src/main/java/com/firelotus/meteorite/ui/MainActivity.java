@@ -1,5 +1,6 @@
 package com.firelotus.meteorite.ui;
 
+import android.Manifest;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,17 +20,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firelotus.meteorite.R;
 import com.firelotus.meteorite.ui.content.SubFragment;
 import com.firelotus.meteoritelibrary.base.BaseActivity;
+import com.firelotus.meteoritelibrary.toast.MToast;
+import com.firelotus.meteoritelibrary.tools.MLog;
 import com.orhanobut.logger.Logger;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
@@ -72,7 +79,7 @@ public class MainActivity extends BaseActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        profile_image = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.profile_image);
+        profile_image = navigationView.getHeaderView(0).findViewById(R.id.profile_image);
         profile_image.setOnClickListener(this);
 
         float unSelectSize = 16;
@@ -94,12 +101,26 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void initData() {
-
+        //rxpermissions实现6.0权限申请
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA)
+        .subscribe(new Consumer<Permission>() {
+            @Override
+            public void accept(Permission permission) throws Exception {
+                if(permission.granted){
+                    MLog.d("Permission granted !");
+                }else if(permission.shouldShowRequestPermissionRationale){
+                    MToast.show(getApplicationContext(),"Denied permission without ask never again !", Toast.LENGTH_LONG);
+                }else{
+                    MToast.show(getApplicationContext(),"Permission denied !", Toast.LENGTH_LONG);
+                }
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -137,18 +158,18 @@ public class MainActivity extends BaseActivity
         if (id == R.id.nav_home) {
         } else if (id == R.id.nav_about) {
             tv_content.setText("about");
-            AboutActivity.start(getApplicationContext());
+            AboutActivity.start(this);
         } else if (id == R.id.nav_login) {
-            WebActivity.loadUrl(getApplicationContext(), "https://github.com/login", "登录GitHub");
+            WebActivity.loadUrl(this, "https://github.com/login", "登录GitHub");
         } else if (id == R.id.nav_set) {
             tv_content.setText("set");
         } else if (id == R.id.nav_comments) {
-            FeedBackActivity.start(getApplicationContext());
+            FeedBackActivity.start(this);
         } else if (id == R.id.nav_logout) {
             finish();
         }
         Logger.d(tv_content.getText().toString());
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

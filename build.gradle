@@ -11,6 +11,10 @@ buildscript {
         classpath "com.android.tools.build:gradle:${versions.gradlePlugin}"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        //环境图标区分
+        classpath 'com.akaita.android:easylauncher:1.2.0'
+        //函数参数输入输出打印
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 

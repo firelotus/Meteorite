@@ -5,6 +5,8 @@ import com.firelotus.meteoritelibrary.base.ICallBack;
 
 import java.util.ArrayList;
 
+import hugo.weaving.DebugLog;
+
 /**
  * Created by firelotus on 2017/10/15.
  */
@@ -17,6 +19,8 @@ public class SubPresenter implements ISubContract.Presenter {
         this.view = view;
         this.modle = new SubModel();
     }
+
+    @DebugLog
     @Override
     public void dealContent(String type, int pageIndex, int pageSize) {
         view.showLoading();
@@ -34,6 +38,7 @@ public class SubPresenter implements ISubContract.Presenter {
         view.hideLoading();
     }
 
+    @DebugLog
     @Override
     public void dealEveryDay(String year, String month, String day) {
         view.showProgress();
