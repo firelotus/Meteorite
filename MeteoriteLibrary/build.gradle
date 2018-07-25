@@ -39,6 +39,8 @@ dependencies {
     compile "com.android.support.constraint:constraint-layout:${versions.constraintLayout}"
     compile "com.android.support:support-annotations:${versions.supportLib}"
 
+    compile 'com.android.support:multidex:1.0.3'
+
     //Simple, pretty and powerful logger for android
     compile "com.orhanobut:logger:${versions.logger}"
 

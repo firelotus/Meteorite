@@ -10,7 +10,7 @@ ext.versions = [
         supportLib        : '27.1.1',
         constraintLayout  : '1.0.2',
         dbflow            : '4.0.5',
-        leakcanary        : '1.5.4',
+        leakcanary        : '1.6.1',
         debugDb           : '1.0.1',
         logger            : '2.1.1',
         novate            : '1.5.2.3',
