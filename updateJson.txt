@@ -2,7 +2,7 @@
 "update": "Yes",
 "new_version": "1.2.0",
 "apk_file_url": "https://pro-app-qn.fir.im/9359d3397ac8026544e21dc47c0f0caf16eaa2ff.apk",
-"update_log": "1¡¢Ìí¼Ó¸üĞÂ¹¦ÄÜ¡£\r\n2¡¢½â¾öÍøÂçÇëÇóÒì³£ÎÊÌâ¡£",
+"update_log": "1ã€æ·»åŠ æ›´æ–°åŠŸèƒ½ã€‚\r\n2ã€è§£å†³ç½‘ç»œè¯·æ±‚å¼‚å¸¸é—®é¢˜ã€‚",
 "target_size": "6M",
 "new_md5": "5f4e983ca9d540249272c1e322aecc73",
 "constraint": false
