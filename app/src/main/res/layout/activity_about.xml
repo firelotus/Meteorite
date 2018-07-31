@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -10,25 +10,58 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        >
+        android:padding="16dp">
         <ImageView
             android:layout_width="230px"
             android:layout_height="230px"
             android:layout_gravity="center"
             android:src="@drawable/head"
             />
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前版本"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/version"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:layout_marginTop="30dp"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="当前版本V1.0"/>
+            android:textSize="18sp"
+            android:text="检查更新"/>
+        <View
+            style="@style/horizontalLine"
+            android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/tv_star"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:paddingTop="16dp"
+            android:text="给个star吧"/>
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_version"
-        android:layout_marginTop="60px"
+        android:layout_marginTop="40px"
+        android:padding="16dp"
         android:gravity="center"
         android:text="O(∩_∩)O图标还不能自给自足,见谅!很高兴您能关注,如果感到满意就Star一下吧,由于时间有限,部分功能还在完善中..."/>
 
-</RelativeLayout>
+</LinearLayout>

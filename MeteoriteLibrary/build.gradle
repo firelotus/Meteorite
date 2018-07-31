@@ -103,6 +103,6 @@ dependencies {
     compile "com.github.chrisbanes:PhotoView:${versions.PhotoView}"
 
     //test
-
+    compile 'com.qianwen:okhttp-utils:3.8.0'
 
 }
