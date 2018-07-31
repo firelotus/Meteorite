@@ -22,12 +22,20 @@
  - 18、APP启动图标多环境区分(easylauncher)
  - 19、函数输入参数打印(Hugo)
  
- <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/app.gif"></img>
- <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/log.gif"></img>
- <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/signedApk.gif"></img>
-<img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/permission.gif"></img>
-<img width="1329" height=“365” src="https://github.com/firelotus/Meteorite/blob/develop/image/hugo.png"></img>
-<img width="144" height=“144” src="https://github.com/firelotus/Meteorite/blob/develop/image/easylauncher.png"></img>
+  APP效果图  
+ <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/app.gif"/>
+ 本地日志  
+ <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/log.gif"/>
+ 签名  
+ <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/signedApk.gif"/>
+ 权限申请  
+ <img width="320" height=“480” src="https://github.com/firelotus/Meteorite/blob/develop/image/permission.gif"/>
+ 函数输入日志打印  
+ <img width="1329" height=“365” src="https://github.com/firelotus/Meteorite/blob/develop/image/hugo.png"/>
+ 启动logo环境区分  
+ <img width="144" height=“144” src="https://github.com/firelotus/Meteorite/blob/develop/image/easylauncher.png"/>
+ 下载试用  
+ <img width="200" height=“200” src="https://github.com/firelotus/Meteorite/blob/develop/image/download.png"/>
  
  
  License
