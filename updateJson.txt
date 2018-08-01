@@ -1,0 +1,9 @@
+{
+"update": "Yes",
+"new_version": "1.2.0",
+"apk_file_url": "https://pro-app-qn.fir.im/ca9c3a7d650fc2ba15600f9cf1213d0f1e5e5da3.apk",
+"update_log": "1、添加更新功能。\r\n2、解决网络请求异常问题。",
+"target_size": "6M",
+"new_md5": "5f4e983ca9d540249272c1e322aecc73",
+"constraint": false
+}

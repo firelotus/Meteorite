@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.firelotus.meteoritelibrary.R;
+import com.firelotus.meteoritelibrary.utils.CleanLeakUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -77,7 +78,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         contentView = inflater.inflate(getLayoutId(), null, false);
         contentView.setLayoutParams(params);
-        mContainer = (RelativeLayout) fragment_base.findViewById(R.id.container);
+        mContainer = fragment_base.findViewById(R.id.container);
         mContainer.addView(contentView);
         mUnbinder = ButterKnife.bind(this, contentView);
         return fragment_base;
@@ -156,6 +157,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
         isLoad = false;
         isVisible = false;
         mUnbinder.unbind();
+        CleanLeakUtils.fixInputMethodManagerLeak(activity);
     }
 
     /**
@@ -190,7 +192,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
         if (contentView != null) {
             E view = (E) mViews.get(viewId);
             if (view == null) {
-                view = (E) contentView.findViewById(viewId);
+                view = contentView.findViewById(viewId);
                 mViews.put(viewId, view);
             }
             return view;

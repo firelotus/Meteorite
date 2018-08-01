@@ -1,6 +1,7 @@
 package com.firelotus.meteorite.base;
 
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.firelotus.meteorite.BuildConfig;
 import com.firelotus.meteoritelibrary.application.ErrorReportApplication;
@@ -56,5 +57,11 @@ public class BaseApplication extends ErrorReportApplication {
 
         //初始化网络
         NovateManager.INSTANCE.init(getApplicationContext(),BuildConfig.BASE_URL);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

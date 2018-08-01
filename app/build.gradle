@@ -25,6 +25,7 @@ android {
         versionName versions.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "" //解决Gradle3.0 Error:All flavors must now belong to a named flavor
+        multiDexEnabled true
     }
     signingConfigs {
         config {
@@ -104,10 +105,12 @@ android {
 
     lintOptions {
         abortOnError false
+        checkReleaseBuilds false
     }
 
     dexOptions {
         javaMaxHeapSize "4g"
+        jumboMode true
         //incremental true
     }
 }
@@ -119,6 +122,8 @@ dependencies {
     //leakcanary
     debugCompile "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leakcanary}"
+    // Optional, if you use support library fragments:
+    debugCompile "com.squareup.leakcanary:leakcanary-support-fragment:${versions.leakcanary}"
 
     annotationProcessor "com.jakewharton:butterknife-compiler:${versions.butterKnife}"
 
@@ -129,7 +134,6 @@ dependencies {
     debugCompile "com.amitshekhar.android:debug-db:${versions.debugDb}",{
         exclude group: 'com.google.code.gson', module: 'gson'
     }
-
 }
 
 //更改程序图标

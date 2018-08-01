@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.firelotus.meteoritelibrary.R;
 import com.firelotus.meteoritelibrary.config.Constants;
 import com.firelotus.meteoritelibrary.toast.MToast;
+import com.firelotus.meteoritelibrary.utils.CleanLeakUtils;
 import com.firelotus.meteoritelibrary.utils.DialogUtils;
 
 import butterknife.ButterKnife;
@@ -77,7 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         // content
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         activity.setLayoutParams(params);
-        RelativeLayout mContainer = (RelativeLayout) activity_base.findViewById(R.id.container);
+        RelativeLayout mContainer = activity_base.findViewById(R.id.container);
         mContainer.addView(activity);
         getWindow().setContentView(activity_base);
 
@@ -119,6 +120,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
+        CleanLeakUtils.fixInputMethodManagerLeak(context);
     }
 
     /**
