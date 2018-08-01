@@ -200,4 +200,8 @@
 -keepclassmembers class com.blankj.utilcode.** { *; }
 -dontwarn com.blankj.utilcode.**
 
+# 解决4.x系统对TLS不同版本支持问题，不可被混淆
+-keep class com.firelotus.meteoritelibrary.utils.Tls12SocketFactory {*;}
+
+
 # Java Bean 统一使用@Keep进行混淆配置
