@@ -1,5 +1,6 @@
 language: android
 jdk: oraclejdk8
+sudo: false
 android:
   components:
     - tools
@@ -8,7 +9,6 @@ android:
     - android-27
     - extra-android-support
     - extra-android-m2repository
-    - extra-google-m2repository
 
     # Additional components
     #- extra-google-google_play_services
@@ -20,3 +20,5 @@ android:
 
   licenses:
     - '.+'
+script:
+  - "./gradlew assembleRlsRelease"
