@@ -20,5 +20,9 @@ android:
 
   licenses:
     - '.+'
+
+before_install:
+  - chmod +x gradlew
+
 script:
   - "./gradlew assembleRlsRelease"
