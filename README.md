@@ -1,4 +1,6 @@
 # Meteorite
+
+[![Build Status](https://www.travis-ci.org/firelotus/Meteorite.svg?branch=master)](https://www.travis-ci.org/firelotus/Meteorite)
 > 一个基于Android  MVP的简单明了的指引性通用架构，目的是帮助更多的开发者去全面了解实践开发相关的各种技术，快速搭建属于自已的APP。
 
 ### 涉及到的技术点：
