@@ -23,5 +23,5 @@ android:
 before_install:
   - yes | sdkmanager "platforms;android-27"
 
-script:
-- "./gradlew :app:assembleRlsRelease"
+#script:
+# - "./gradlew :app:assembleRlsRelease"
