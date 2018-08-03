@@ -7,8 +7,7 @@ android:
     - platform-tools
     - build-tools-27.0.0
     - android-27
-    - extra-android-support
-    - extra-android-m2repository
+    - extra
 
     # Additional components
     #- extra-google-google_play_services
@@ -22,7 +21,7 @@ android:
     - '.+'
 
 before_install:
-  - chmod +x gradlew
+  - yes | sdkmanager "platforms;android-27"
 
 script:
-  - "./gradlew assembleRlsRelease"
+- "./gradlew :app:assembleRlsRelease"
