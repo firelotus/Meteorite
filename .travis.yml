@@ -22,7 +22,6 @@ android:
 
 before_install:
   - yes | sdkmanager "platforms;android-27"
-  - gradle wrapper --gradle-version 4.1
   - chmod a+x gradlew
 
 script:
