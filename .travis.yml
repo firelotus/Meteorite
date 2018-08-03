@@ -22,7 +22,7 @@ android:
 
 before_install:
   - yes | sdkmanager "platforms;android-27"
-  - chmod a+x gradlew
+  #- chmod a+x gradlew
 
-script:
- - ./gradlew :app:assembleRlsRelease
+#script:
+# - ./gradlew :app:assembleRlsRelease
