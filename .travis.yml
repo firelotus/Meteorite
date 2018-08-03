@@ -4,8 +4,9 @@ sudo: false
 android:
   components:
     - tools
+    - tools
     - platform-tools
-    - build-tools-27.0.0
+    - build-tools-27.0.3
     - android-27
     - extra
 
@@ -24,5 +25,6 @@ before_install:
   - yes | sdkmanager "platforms;android-27"
   #- chmod a+x gradlew
 
-#script:
+script:
+  - ./gradlew clean build
 # - ./gradlew :app:assembleRlsRelease
