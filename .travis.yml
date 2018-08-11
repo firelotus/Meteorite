@@ -22,6 +22,7 @@ android:
     - '.+'
 
 before_install:
+  - gem install fir-cli
   - yes | sdkmanager "platforms;android-27"
   - chmod a+x gradlew
 
@@ -38,7 +39,6 @@ deploy:
     repo: firelotus/Meteorite
     tags: true
     all_branches: true
-before_install:
-- gem install fir-cli
+
 after_deploy:
 - fir p app/build/outputs/apk/rls/release/app-rls-release.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
