@@ -14,7 +14,7 @@ ext.versions = [
         debugDb           : '1.0.1',
         logger            : '2.1.1',
         novate            : '1.5.2.3',
-        xrecyclerview     : '1.3.2',
+        xrecyclerview     : '1.5.9',
         baseRvadapter     : '3.0.3',
         viewPagerIndicator: '1.1.6',
         banner            : '1.4.10',

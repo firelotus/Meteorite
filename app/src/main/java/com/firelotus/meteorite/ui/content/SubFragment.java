@@ -179,6 +179,10 @@ public class SubFragment extends BaseFragment implements ISubContract.View{
         if(presenter != null){
             presenter.detach();
         }
+        if(xRecyclerView != null){
+            xRecyclerView.destroy();
+            xRecyclerView = null;
+        }
     }
     
     @Override
