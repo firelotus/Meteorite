@@ -28,3 +28,17 @@ before_install:
 script:
 #  - ./gradlew clean build
  - ./gradlew :app:assembleRlsRelease
+
+deploy:
+  provider: releases
+  api_key:
+    secure: 76365c9e32d539cb342ecc9100e81c9ee8e9c525
+  file: app/build/outputs/apk/rls/release/app-rls-release.apk
+  on:
+    repo: firelotus/Meteorite
+    tags: true
+    all_branches: true
+before_install:
+- gem install fir-cli
+after_deploy:
+- fir p app/build/outputs/apk/rls/release/app-rls-release.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
